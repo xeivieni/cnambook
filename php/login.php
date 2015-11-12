@@ -7,7 +7,7 @@
         $password = $_GET["inputPassword"];
     }
 
-    $stmt = $conn->prepare('SELECT * FROM users WHERE email=:email AND password = MD5(:pass)');
+    $stmt = $conn->prepare('SELECT * FROM users WHERE mail=:email AND password = MD5(:pass)');
     $stmt->execute(array('email' => $email, 'pass' => $password));
 
     $result = $stmt->fetchAll();
@@ -16,10 +16,12 @@
     if ($count  == 1) {
         $_SESSION['pseudo'] = $result["username"];
         $_SESSION['id'] =  $result["iduser"];
-        header("Location: ../index.html");
+        echo "found";
+        //header("Location: ../index.html");
     }
     else{
-        header("Location: ../html/login.html");
+        echo "not found";
+//        header("Location: ../html/login.html");
     }
 
 ?>
