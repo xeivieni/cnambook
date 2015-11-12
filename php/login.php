@@ -2,26 +2,25 @@
     session_start();
     include ("config.php");
 
-    if (isset($_GET["inputEmail"])){;
+    if (isset($_GET["inputEmail"])){
         $email = $_GET["inputEmail"];
         $password = $_GET["inputPassword"];
     }
 
-    $stmt = $conn->prepare('SELECT * FROM users WHERE mail=:email AND password = MD5(:pass)');
+    $stmt = $conn->prepare('SELECT * FROM Users WHERE mail=:email AND password = MD5(:pass)');
     $stmt->execute(array('email' => $email, 'pass' => $password));
 
     $result = $stmt->fetchAll();
     $count = $stmt->rowCount();
 
     if ($count  == 1) {
-        $_SESSION['pseudo'] = $result["username"];
-        $_SESSION['id'] =  $result["iduser"];
-        echo "found";
-        //header("Location: ../index.html");
+        $_SESSION['mail'] = $result[0]["mail"];
+        $_SESSION['nom'] = $result[0]["nom"];
+        $_SESSION['id'] =  $result[0]["iduser"];
+        header("Location: ../index.html");
     }
     else{
-        echo "not found";
-//        header("Location: ../html/login.html");
+        header("Location: ../html/login.html");
     }
 
 ?>
