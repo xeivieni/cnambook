@@ -2,24 +2,24 @@
     session_start();
     include ("config.php");
 
-    if (isset($_GET["username"])){;
-        $username = $_GET["username"];
-        $password = $_GET["password"];
+    if (isset($_GET["inputEmail"])){;
+        $email = $_GET["inputEmail"];
+        $password = $_GET["inputPassword"];
     }
 
-    $stmt = $conn->prepare('SELECT * FROM users WHERE pseudo =:pseudo AND password = MD5(:pass)');
-    $stmt->execute(array('pseudo' => $username, 'pass' => $password));
+    $stmt = $conn->prepare('SELECT * FROM users WHERE email=:email AND password = MD5(:pass)');
+    $stmt->execute(array('email' => $email, 'pass' => $password));
 
     $result = $stmt->fetchAll();
     $count = $stmt->rowCount();
 
     if ($count  == 1) {
-        $_SESSION['pseudo'] = $username;
+        $_SESSION['pseudo'] = $result["username"];
         $_SESSION['id'] =  $result["iduser"];
-        header("Location: index.html");
+        header("Location: ../index.html");
     }
     else{
-        header("Location: login.html");
+        header("Location: ../html/login.html");
     }
 
 ?>

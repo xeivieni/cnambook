@@ -2,7 +2,7 @@
 <?php
     session_start();
 	if (!isset($_SESSION['pseudo'])){
-		header("Location: index3.php");
+		header("Location: html/login.html");
 	}
 
     echo "Welcome ".$_SESSION['pseudo'];
@@ -36,14 +36,14 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Profile</a></li>
+                <li><a href="html/profile.html">Profile</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Settings</a></li>
-                        <li><a href="help.html">Help</a></li>
+                        <li><a href="html/help.html">Help</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="php/logout.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
