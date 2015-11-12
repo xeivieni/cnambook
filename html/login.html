@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div id="login" class="animate form">
+    <form action="../php/login.php" autocomplete="on" method="get">
+        <h1>Log in</h1>
+        <p>
+            <label for="username" class="uname" data-icon="u" > Your username </label>
+            <input id="username" name="username" required="required" type="text" placeholder="Pseudo"/>
+        </p>
+        <p>
+            <label for="password" class="youpasswd" data-icon="p"> Your password </label>
+            <input id="password" name="password" required="required" type="password" placeholder="mot de passe" />
+        </p>
+        <p class="button">
+            <input type="submit" name="login" value="Login" />
+        </p>
+    </form>
+</div>
+</body>
+</html>
