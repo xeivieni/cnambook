@@ -16,6 +16,7 @@
     if ($count  == 1) {
         $_SESSION['mail'] = $result[0]["mail"];
         $_SESSION['nom'] = $result[0]["nom"];
+        $_SESSION['prenom'] = $result[0]["prenom"];
         $_SESSION['id'] =  $result[0]["iduser"];
         header("Location: ../index.php");
     }
