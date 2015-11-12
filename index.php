@@ -1,12 +1,8 @@
 <?php
-    echo "bonjour";
     session_start();
 	if (!isset($_SESSION["mail"])){
-	    echo "coucou";
-		//header("Location: html/login.html");
+		header("Location: html/login.html");
 	}
-
-    echo "Welcome ".$_SESSION["nom"];
 ?>
 
 <!DOCTYPE html>
@@ -23,9 +19,9 @@
 
 </head>
 <body>
-<!--<nav class="navbar navbar-default">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
-        &lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;
+        <!--Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
                 <img alt="Brand" src="img/hand332.png">
@@ -50,9 +46,9 @@
                     </ul>
                 </li>
             </ul>
-        </div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;
-    </div>&lt;!&ndash; /.container-fluid &ndash;&gt;
-</nav>-->
+        </div><!--.navbar-collapse-->
+    </div><!--.container-fluid-->
+</nav>
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
