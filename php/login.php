@@ -18,7 +18,7 @@
         $_SESSION['nom'] = $result[0]["nom"];
         $_SESSION['prenom'] = $result[0]["prenom"];
         $_SESSION['id'] =  $result[0]["iduser"];
-        header("Location: ../index.php");
+        header("Location: index.php");
     }
     else{
         header("Location: ../html/login.html");

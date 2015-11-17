@@ -1,10 +1,3 @@
-<?php
-    session_start();
-	if (!isset($_SESSION["mail"])){
-		header("Location: html/login.html");
-	}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <title>Cnambook</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom -->
+    <link href="../css/header.css" rel="stylesheet">
 
 </head>
 <body>
@@ -23,8 +16,8 @@
     <div class="container-fluid">
         <!--Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <img alt="Brand" src="img/hand332.png">
+            <a class="navbar-brand" href="index.php">
+                <img alt="Brand" src="../img/hand332.png">
             </a>
         </div>
         <div class="container-fluid">
@@ -32,17 +25,18 @@
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
+                <!-- search = SELECT *, match(titrefr, titreorigine) against ("Prince petit" IN BOOLEAN MODE) as score from `films` HAVING score > 0 ORDER by score DESC-->
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="php/profile.php?id=<?php echo $_SESSION["id"]; ?>">Profile</a></li>
+                <li><a href="profile.php?id=<?php echo $_SESSION['id']; ?>">Profile</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Settings</a></li>
-                        <li><a href="html/help.html">Help</a></li>
+                        <li><a href="../html/help.html">Help</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="php/logout.php">Logout</a></li>
+                        <li><a href="logout.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -54,6 +48,6 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 </body>
 </html>
