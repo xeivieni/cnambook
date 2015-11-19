@@ -22,6 +22,8 @@
     $photo, 'inscriptiondate' => $inscriptioDate, 'email' => $email, 'hometown' => $hometown, 'cityresidency' => $cityResidency
     , 'pass' => $password));
 
+    header("Location: index.php");
+
 
 
 ?>
