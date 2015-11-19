@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Register to cnambook</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/login.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container">
+
+    <form class="form-signin" action="../php/register.php" autocomplete="on" method="get">
+        <h2 class="form-signin-heading">Create account</h2>
+
+        <label for="lastName" class="sr-only">Email address</label>
+        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" required autofocus>
+
+        <label for="firstName" class="sr-only">Email address</label>
+        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" required autofocus>
+
+        <label for="birthdayDate" class="sr-only">Email address</label>
+        <input type="date" id="birthdayDate" name="birthdayDate" class="form-control" placeholder="Birthday date" required autofocus>
+
+        <label for="photo" class="sr-only">Email address</label>
+        <input type="text" id="photo" name="photo" class="form-control" placeholder="Photo link" required autofocus>
+
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+        <label for="hometown" class="sr-only">Email address</label>
+        <input type="text" id="hometown" name="hometown" class="form-control" placeholder="Hometown" required autofocus>
+
+        <label for="cityResidency" class="sr-only">Email address</label>
+        <input type="text" id="cityResidency" name="cityResidency" class="form-control" placeholder="City of residency" required autofocus>
+
+        <label for="section" class="sr-only">Email address</label>
+        <input type="text" id="section" name="section" class="form-control" placeholder="Section" required autofocus>
+
+        <label for="sectionYear" class="sr-only">Email address</label>
+        <input type="text" id="sectionYear" name="sectionYear" class="form-control" placeholder="Section year" required autofocus>
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+</div> <!-- /container -->
+
+</body>
+</html>

@@ -52,7 +52,7 @@ $statuts = $stmt->fetchAll();
         <hr>
 
         <p> <?php echo $count; ?> likes<a href="#" data-toggle="modal"
-                         data-target="#basicModal">Voir les amis qui ont liké</a></p>
+                         data-target="#basicModal">  Voir les amis qui ont liké</a></p>
 
         <hr>
         <form>
