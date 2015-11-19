@@ -1,4 +1,5 @@
 <?php
+    setlocale(LC_CTYPE, 'fr_FR.UTF-8');
     session_start();
     include ("config.php");
 
@@ -8,6 +9,9 @@
     $id = $_SESSION["id"];
     $nom = $_SESSION["nom"];
     $prenom = $_SESSION["prenom"];
+    $stmt2 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
+$stmt2->execute(array('id' => $id));
+$user = $stmt2->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -29,31 +33,45 @@
 <body>
 
 <?php
-$stmt1 = $conn->prepare('SELECT Statut.* FROM Amis, Statut WHERE Amis.iduser1=:id AND Statut.iduser=Amis.iduser2');
-$stmt2= $conn->prepare('SELECT Statut.* FROM Amis, Statut WHERE Amis.iduser2=:id AND Statut.iduser=Amis.iduser1');
+$stmt1 = $conn->prepare('SELECT Statut.* FROM Amis, Statut WHERE (Amis.iduser1=:id AND Statut.iduser=Amis.iduser2) OR (Amis.iduser2=:id AND Statut.iduser=Amis.iduser1) ORDER BY Statut.date DESC');
+
 $stmt1->execute(array('id' => $id));
-$stmt2->execute(array('id' => $id));
-$status1 = $stmt1->fetchAll();
-$status2 = $stmt2->fetchAll();
-$status = array_merge($status1, $status2);
+
+$status = $stmt1->fetchAll();
+
 
 ?>
+<div class="col-lg-8 col-lg-offset-2">
+    <div class="well">
+        <form class="form-horizontal" role="form">
+            <h4>What's New</h4>
 
+            <div class="form-group" style="padding:14px;">
+                <textarea class="form-control" placeholder="Update your status"></textarea>
+            </div>
+            <button class="btn btn-primary pull-right" type="button">Post</button>
+            <ul class="list-inline">
+                <li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li>
+                <li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li>
+                <li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li>
+            </ul>
+        </form>
+    </div>
+</div>
 
 
 <?php foreach($status as $statut): ?>
-    <?php
+<?php
     $stmt = $conn->prepare('SELECT * FROM Compteur WHERE idstatut=:id');
-    $stmt->execute(array('id' => $statut["idstatut"]));
-    $likes = $stmt->fetchAll();
-    $count = $stmt->rowCount();
-    $stmt2 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
-    $stmt2->execute(array('id' => $statut["iduser"]));
-    $owner = $stmt2->fetchAll();
+$stmt->execute(array('id' => $statut["idstatut"]));
+$likes = $stmt->fetchAll();
+$count = $stmt->rowCount();
+$stmt2 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
+$stmt2->execute(array('id' => $statut["iduser"]));
+$owner = $stmt2->fetchAll();
 
-    ?>
+?>
 <div class="container-fluid">
-
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
             <?php include("post.php"); ?>
@@ -64,9 +82,7 @@ $status = array_merge($status1, $status2);
 </div>
 
 
-
 <?php endforeach ?>
-
 
 
 </body>

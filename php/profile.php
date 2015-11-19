@@ -1,10 +1,15 @@
 <?php
+setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 session_start();
 include("config.php");
 $id = $_GET["id"];
 $stmt2 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
 $stmt2->execute(array('id' => $id));
 $owner = $stmt2->fetchAll();
+$userid = $_SESSION["id"];
+$stmt3 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
+$stmt3->execute(array('id' => $userid));
+$user = $stmt3->fetchAll();
 ?>
 
 
@@ -31,32 +36,43 @@ $statuts = $stmt->fetchAll();
 ?>
 
 
-
-
 <body>
 
-<?php foreach($statuts as $statut): ?>
-    <?php
-        $stmt = $conn->prepare('SELECT * FROM Compteur WHERE idstatut=:id');
-        $stmt->execute(array('id' => $statut["idstatut"]));
-        $likes = $stmt->fetchAll();
-        $count = $stmt->rowCount();
-    ?>
-
-<div class="container-fluid">
+<div class="jumbotron">
+    <h1>Hello, world!</h1>
 
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <?php include("post.php"); ?>
-
+        <div class="col-xs-6 col-md-3">
+            <a href="#" class="thumbnail">
+                <img src="../img/users/clem.png" alt="...">
+            </a>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
         </div>
     </div>
 
-</div>
+    <?php foreach($statuts as $statut): ?>
+    <?php
+        $stmt = $conn->prepare('SELECT * FROM Compteur WHERE idstatut=:id');
+    $stmt->execute(array('id' => $statut["idstatut"]));
+    $likes = $stmt->fetchAll();
+    $count = $stmt->rowCount();
+    ?>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <?php include("post.php"); ?>
+
+            </div>
+        </div>
+
+    </div>
 
 
-<?php endforeach ?>
-
+    <?php endforeach ?>
 
 
 </body>

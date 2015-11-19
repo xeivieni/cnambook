@@ -22,15 +22,33 @@
         </div>
         <div class="container-fluid">
             <form class="navbar-form navbar-left" role="search">
+
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
                 <!-- search = SELECT *, match(titrefr, titreorigine) against ("Prince petit" IN BOOLEAN MODE) as score from `films` HAVING score > 0 ORDER by score DESC-->
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
             </form>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Tu cherches quoi ?">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="profile.php?id=<?php echo $_SESSION['id']; ?>">Profile</a></li>
-                <li><a href="logout.php">Logout</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="../img/users/<?php echo $user[0]["lien_photo"];?>" class="img-circle pull-left"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="profile.php?id=<?php echo $_SESSION['id']; ?>"> Profile</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
         </div><!--.navbar-collapse-->
     </div><!--.container-fluid-->
