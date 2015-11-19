@@ -30,15 +30,7 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="profile.php?id=<?php echo $_SESSION['id']; ?>">Profile</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="../html/help.html">Help</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="logout.php">Logout</a></li>
-                    </ul>
-                </li>
+                <li><a href="logout.php">Logout</a></li>
             </ul>
         </div><!--.navbar-collapse-->
     </div><!--.container-fluid-->
