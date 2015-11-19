@@ -12,7 +12,7 @@
     $section = $_GET["section"];
     $sectionYear = $_GET["sectionYear"];
     $password = $_GET["inputPassword"];
-    $inscriptioDate = "19/11/15";
+    $inscriptionDate = "19/11/15";
 
 
     $stmt2 = $conn->prepare('SELECT idsection FROM Section WHERE nom=:sectionName AND annee =:yearSection');
@@ -34,7 +34,7 @@
     :email, :hometown, :cityresidency, :idsection ,MD5(:pass))');
 
     $stmt->execute(array('lastname' => $lastName, 'firstname' => $firstName, 'birthdaydate' => $birthdayDate, 'photolink' =>
-    $photo, 'inscriptiondate' => $inscriptioDate, 'email' => $email, 'hometown' => $hometown, 'cityresidency' => $cityResidency
+    $photo, 'inscriptiondate' => $inscriptionDate, 'email' => $email, 'hometown' => $hometown, 'cityresidency' => $cityResidency
     , 'idsection' => $idsection ,'pass' => $password));
 
     header("Location: index.php");

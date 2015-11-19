@@ -14,7 +14,11 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="../css/bootstrap-select.css">
     <link href="../css/login.css" rel="stylesheet">
+
+    <script src="../js/bootstrap-select.js"></script>
+
 
 </head>
 <body>
@@ -53,6 +57,33 @@
 
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required>
+
+        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" required autofocus>
+
+        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" required autofocus>
+
+        <input type="date" id="birthdayDate" name="birthdayDate" class="form-control" placeholder="Birthday date" required autofocus>
+
+        <input type="text" id="photo" name="photo" class="form-control" placeholder="Photo link" required autofocus>
+
+        <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+        <input type="text" id="hometown" name="hometown" class="form-control" placeholder="Hometown" required autofocus>
+
+        <input type="text" id="cityResidency" name="cityResidency" class="form-control" placeholder="City of residency" required autofocus>
+
+        <label for="section">Section</label>
+        <select name="section" id="section" class="selectpicker">
+            <option>SETI</option>
+            <option>EPRM</option>
+            <option>IDEE</option>
+            <option>MECA</option>
+            <option>STN</option>
+        </select>
+
+        <input type="text" id="sectionYear" name="sectionYear" class="form-control" placeholder="Section year" required autofocus>
+
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Go !</button>
     </form>

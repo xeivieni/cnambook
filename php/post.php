@@ -5,9 +5,8 @@
         <?php echo $statut["texte"]; ?>
         <div class="clearfix"></div>
         <hr>
-
         <p><a href="#" data-toggle="modal"
-              data-target="#basicModal1"> <?php echo $count; ?> likes</a></p>
+              data-target="#likeslist<?php echo $statut["idstatut"];?>"> <?php echo $count; ?> likes</a></p>
 
         <form class="like" action="../php/like.php" method="get">
             <div class="input-group">
@@ -19,7 +18,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="basicModal1" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal fade" id="likeslist<?php echo $statut["idstatut"];?>" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,6 +27,9 @@
             </div>
             <div class="modal-body">
                 <?php
+                if (count($likes) == 0){
+                    echo "Personne n'a encore liké ton statut..";
+                }
                 foreach($likes as $like){
                         $stmt = $conn->prepare('SELECT nom, prenom FROM Users WHERE iduser=:id');
                 $stmt->execute(array('id' => $like["iduser"]));
