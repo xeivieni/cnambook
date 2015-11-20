@@ -39,16 +39,18 @@ $statuts = $stmt->fetchAll();
 <body>
 
 <div class="jumbotron">
-    <h1>Hello, world!</h1>
+    <h1><?php echo $owner[0]["prenom"]." ".$owner[0]["nom"]; ?></h1>
 
     <div class="row">
         <div class="col-xs-6 col-md-3">
             <a href="#" class="thumbnail">
-                <img src="../img/users/clem.png" alt="...">
+                <img src="../img/users/<?php echo $owner[0]["lien_photo"];?>">
             </a>
         </div>
+    </div>
+    <div class="row">
         <div class="col-xs-6 col-md-3">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            <a class="btn btn-primary btn-lg" href="#" role="button"><span class="glyphicon glyphicon-plus"></span> Ajouter en ami</a>
         </div>
     </div>
 

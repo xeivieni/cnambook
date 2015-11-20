@@ -2,8 +2,8 @@
 -- version 4.4.10
 -- http://www.phpmyadmin.net
 --
--- Client :  localhost
--- Généré le :  Jeu 19 Novembre 2015 à 15:13
+-- Client :  localhost:8889
+-- Généré le :  Ven 20 Novembre 2015 à 16:35
 -- Version du serveur :  5.5.42
 -- Version de PHP :  5.6.10
 
@@ -46,7 +46,7 @@ CREATE TABLE `Compteur` (
   `heure` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `iduser` int(11) NOT NULL,
   `idstatut` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `Compteur`
@@ -144,7 +144,7 @@ CREATE TABLE `Users` (
   `ville_residence` varchar(100) NOT NULL,
   `idsection` int(11) NOT NULL,
   `password` varchar(32) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `Users`
@@ -189,7 +189,8 @@ ALTER TABLE `Statut`
 -- Index pour la table `Users`
 --
 ALTER TABLE `Users`
-  ADD PRIMARY KEY (`iduser`);
+  ADD PRIMARY KEY (`iduser`),
+  ADD FULLTEXT KEY `search` (`nom`,`prenom`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -204,7 +205,7 @@ ALTER TABLE `Amis`
 -- AUTO_INCREMENT pour la table `Compteur`
 --
 ALTER TABLE `Compteur`
-  MODIFY `idlike` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `idlike` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `Section`
 --

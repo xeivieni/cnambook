@@ -21,24 +21,15 @@
             </a>
         </div>
         <div class="container-fluid">
-            <form class="navbar-form navbar-left" role="search">
-
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <!-- search = SELECT *, match(titrefr, titreorigine) against ("Prince petit" IN BOOLEAN MODE) as score from `films` HAVING score > 0 ORDER by score DESC-->
-                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-            </form>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tu cherches quoi ?">
+            <form class="navbar-form navbar-left" role="search" action="../php/search.php">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Tu cherches quoi ?" id="search" name="search" >
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
+                            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
                         </span>
-                    </div><!-- /input-group -->
-                </div>
-            </div>
+                </div><!-- /input-group -->
+            </form>
+
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
