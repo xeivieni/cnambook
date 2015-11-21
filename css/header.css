@@ -3,3 +3,8 @@
     color: #ffff00;
 }
 body { padding-top: 70px; }
+
+.navbar-nav>li>a.profile-image {
+    padding-top: 550px;
+    padding-bottom: 50px;
+}

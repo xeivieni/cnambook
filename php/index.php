@@ -43,13 +43,13 @@ $status = $stmt1->fetchAll();
 ?>
 <div class="col-lg-8 col-lg-offset-2">
     <div class="well">
-        <form class="form-horizontal" role="form">
-            <h4>What's New</h4>
+        <form class="form-horizontal" action="status.php" role="form">
+            <h4>Quoi de neuf ?</h4>
 
             <div class="form-group" style="padding:14px;">
-                <textarea class="form-control" placeholder="Update your status"></textarea>
+                <textarea id="statut" name="statut" class="form-control" placeholder="Postez un nouveau statut..."></textarea>
             </div>
-            <button class="btn btn-primary pull-right" type="button">Post</button>
+            <button class="btn btn-primary pull-right" type="submit">Post</button>
             <ul class="list-inline">
                 <li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li>
                 <li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li>
