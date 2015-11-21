@@ -1,21 +1,21 @@
 body {
-    padding-top: 40px;
+    padding-top: 0;
     padding-bottom: 40px;
-
-    background-image: url("../img/background.jpg");
 }
 
 .form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
+    max-width: 550px;
+    padding: 0;
+    }
+.navbar-blue {
+    background-color:#3B5999;
+    top:0;
+    width:100%;
+    position:relative;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
     margin-bottom: 10px;
-}
-.form-signin .checkbox {
-    font-weight: normal;
 }
 .form-signin .form-control {
     position: relative;
@@ -38,4 +38,29 @@ body {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+.logo {
+    display:block;
+    padding:3px;
+    background-color:#fff;
+    color:#3B5999;
+    height:28px;
+    width:28px;
+    margin:9px;
+    margin-right:2px;
+    margin-left:15px;
+    font-size:20px;
+    font-weight:700;
+    text-align:center;
+    text-decoration:none;
+    text-shadow:0 0 1px;
+    border-radius:2px;
+}
+.navbar.center .navbar-inner {
+    text-align: center;
+}
+
+.navbar.center .navbar-inner .nav {
+    display:inline-block;
+    float: none;
 }

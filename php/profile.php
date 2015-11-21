@@ -30,7 +30,7 @@ $user = $stmt3->fetchAll();
 </header>
 
 <?php
-$stmt = $conn->prepare('SELECT * FROM Statut WHERE iduser=:id ORDER BY Statut.date DESC');
+$stmt = $conn->prepare('SELECT * FROM Statut WHERE iduser=:id ORDER BY Statut.heure DESC');
 $stmt->execute(array('id' => $id));
 $statuts = $stmt->fetchAll();
 ?>
@@ -39,63 +39,68 @@ $statuts = $stmt->fetchAll();
 <body>
 
 <div class="jumbotron">
-    <h1><?php echo $owner[0]["prenom"]." ".$owner[0]["nom"]; ?></h1>
+    <h1><?php echo $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?></h1>
 
     <div class="row">
         <div class="col-xs-6 col-md-3">
             <a href="#" class="thumbnail">
-                <img src="../img/users/<?php echo $owner[0]["lien_photo"];?>" width="320" height="320">
+                <img src="../img/users/<?php echo $owner[0]["lien_photo"]; ?>" width="320" height="320">
             </a>
         </div>
     </div>
     <?php
     if ($userid == $id) {
         $isfriend = -1;
-    }
-    else {
+    } else {
         $stmt = $conn->prepare('SELECT * FROM Amis WHERE (iduser1=:iduser1 and iduser2=:iduser2) or (iduser1=:iduser2 and iduser2=:iduser1)');
         $stmt->execute(array('iduser1' => $id, 'iduser2' => $userid));
         $isfriend = $stmt->rowCount();
     }
     ?>
-    <?php if($isfriend == 0): ?>
-    <form action="friend.php" method="get">
-    <div class="row">
-        <div class="col-xs-6 col-md-3">
-            <button class="btn btn-primary btn-lg" type="submit" role="button" name="id" value="<?php echo $owner[0]["iduser"];?>"><span class="glyphicon glyphicon-plus"></span> Ajouter en ami</button>
-        </div>
-    </div>
-    </form>
-    <?php endif ?>
-
-    <?php if($isfriend == 1): ?>
-    <form action="unfriend.php" method="get">
-    <div class="row">
-        <div class="col-xs-6 col-md-3">
-            <button class="btn btn-primary btn-lg" type="submit" role="button" name="id" value="<?php echo $owner[0]["iduser"];?>"><span class="glyphicon glyphicon-plus"></span> Retirer des amis</button>
-        </div>
-    </div>
-    </form>
-    <?php endif ?>
-
-    <?php foreach($statuts as $statut): ?>
-    <?php
-        $stmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
-    $stmt->execute(array('id' => $statut["idstatut"]));
-    $likes = $stmt->fetchAll();
-    $count = $stmt->rowCount();
-    ?>
-
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <?php include("post.php"); ?>
-
+    <?php if ($isfriend == 0): ?>
+        <form action="friend.php" method="get">
+            <div class="row">
+                <div class="col-xs-6 col-md-3">
+                    <button class="btn btn-primary btn-lg" type="submit" role="button" name="id"
+                            value="<?php echo $owner[0]["iduser"]; ?>"><span class="glyphicon glyphicon-plus"></span>
+                        Ajouter en ami
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
+    <?php endif ?>
 
-    </div>
+    <?php if ($isfriend == 1): ?>
+        <form action="unfriend.php" method="get">
+            <div class="row">
+                <div class="col-xs-6 col-md-3">
+                    <button class="btn btn-primary btn-lg" type="submit" role="button" name="id"
+                            value="<?php echo $owner[0]["iduser"]; ?>"><span class="glyphicon glyphicon-plus"></span>
+                        Retirer des amis
+                    </button>
+                </div>
+            </div>
+        </form>
+    <?php endif ?>
+
+    <?php foreach ($statuts as $statut): ?>
+        <?php
+        $stmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
+        $stmt->execute(array('id' => $statut["idstatut"]));
+        $likes = $stmt->fetchAll();
+        $count = $stmt->rowCount();
+        ?>
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <?php include("post.php"); ?>
+
+                </div>
+            </div>
+
+        </div>
 
 
     <?php endforeach ?>
