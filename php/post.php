@@ -39,16 +39,17 @@
                 if (count($likes) == 0) {
                     echo "Personne n'a encore liké ton statut..";
                 }
-                foreach ($likes as $like) {
-                    $stmt = $conn->prepare('SELECT nom, prenom FROM Users WHERE iduser=:id');
+                ?>
+                <?php foreach ($likes as $like) : ?>
+                    <?php
+                    $stmt = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
                     $stmt->execute(array('id' => $like["iduser"]));
                     $name = $stmt->fetchAll();
-                    echo $name[0]["nom"];
-                    echo " ";
-                    echo $name[0]["prenom"];
-                    echo "<br>";
-                }
-                ?>
+                    ?>
+                    <a href="profile.php?id=<?php echo $name[0]["iduser"]; ?>"><img
+                            src="../img/users/<?php echo $name[0]["lien_photo"]; ?>" class="img-circle pull-left"
+                            width="25" height="25"><?php echo " " . $name[0]["prenom"] . " " . $name[0]["nom"]; ?></a>
+                <?php endforeach ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

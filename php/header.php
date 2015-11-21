@@ -43,7 +43,7 @@
                     </form>
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#"><i class="glyphicon glyphicon-home"></i> Accueil</a>
+                            <a href="index.php"><i class="glyphicon glyphicon-home"></i> Accueil</a>
                         </li>
                         <li>
                             <a href="#" role="button" data-toggle="modal"><i class="glyphicon glyphicon-education"></i>
