@@ -44,13 +44,12 @@ $statuts = $stmt->fetchAll();
     <div class="row">
         <div class="col-xs-6 col-md-3">
             <a href="#" class="thumbnail">
-                <img src="../img/users/<?php echo $owner[0]["lien_photo"];?>">
+                <img src="../img/users/<?php echo $owner[0]["lien_photo"];?>" width="320" height="320">
             </a>
         </div>
     </div>
     <?php
     if ($userid == $id) {
-        echo "vous ne pouvez pas vous ajouter en ami";
         $isfriend = -1;
     }
     else {

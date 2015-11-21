@@ -5,15 +5,15 @@
     $idstatut = $_GET["id"];
     $iduser = $_SESSION["id"];
 
-    $stmt = $conn->prepare('SELECT * FROM Compteur WHERE iduser=:iduser and idstatut=:idstatut');
+    $stmt = $conn->prepare('SELECT * FROM Likes WHERE iduser=:iduser and idstatut=:idstatut');
 $stmt->execute(array('iduser' => $iduser, 'idstatut' => $idstatut));
 $count = $stmt->rowCount();
 if ($count == 0){
-$stmt2 = $conn->prepare('INSERT INTO `Compteur`(`idlike`, `date`, `heure`, `iduser`, `idstatut`) VALUES (NULL,CURRENT_DATE,CURRENT_TIMESTAMP, :iduser,:idstatut)');
+$stmt2 = $conn->prepare('INSERT INTO Likes(idlike, date, heure, iduser, idstatut) VALUES (NULL,CURRENT_DATE,CURRENT_TIMESTAMP, :iduser,:idstatut)');
 $stmt2->execute(array('iduser' => $iduser, 'idstatut' => $idstatut));
 }
 else{
-$stmt3 = $conn->prepare('DELETE FROM `Compteur` WHERE `iduser`=:iduser AND `idstatut`=:idstatut');
+$stmt3 = $conn->prepare('DELETE FROM Likes WHERE iduser=:iduser AND idstatut=:idstatut');
 $stmt3->execute(array('iduser' => $iduser, 'idstatut' => $idstatut));
 }
 

@@ -34,11 +34,9 @@ $user = $stmt2->fetchAll();
 
 <?php
 $stmt1 = $conn->prepare('SELECT Statut.* FROM Amis, Statut WHERE (Amis.iduser1=:id AND Statut.iduser=Amis.iduser2) OR (Amis.iduser2=:id AND Statut.iduser=Amis.iduser1) ORDER BY Statut.date DESC');
-
 $stmt1->execute(array('id' => $id));
 
 $status = $stmt1->fetchAll();
-
 
 ?>
 <div class="col-lg-8 col-lg-offset-2">

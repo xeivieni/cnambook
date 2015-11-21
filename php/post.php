@@ -8,13 +8,17 @@
         <p><a href="#" data-toggle="modal"
               data-target="#likeslist<?php echo $statut["idstatut"];?>"> <?php echo $count; ?> likes</a></p>
 
-        <form class="like" action="../php/like.php" method="get">
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit" name="id" value="<?php echo $statut["idstatut"]; ?>"><i class="glyphicon glyphicon-thumbs-up"></i></button>
-                </div>
+
+        <div class="input-group">
+            <div class="input-group-btn">
+                <form class="like" action="like.php" method="get">
+                <button class="btn btn-default" type="submit" name="id" value="<?php echo $statut["idstatut"]; ?>"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+                </form>
             </div>
-        </form>
+            <form action="comment.php" method="get">
+                <input type="text" class="form-control" name="infos[]" id="comment" placeholder="Ajouter un commentaire..">
+            </form>
+        </div>
     </div>
 </div>
 
