@@ -8,59 +8,66 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Register to cnambook</title>
+    <title>Login to cnambook</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="../css/bootstrap-select.css">
     <link href="../css/login.css" rel="stylesheet">
 
-    <script src="../js/bootstrap-select.js"></script>
-
-
 </head>
+
 <body>
+<nav class="navbar navbar-blue center">
+    <div class="navbar-inner">
+        <ul class="nav navbar-nav">
+            <a class="navbar-brand logo">c</a>
+        </ul>
 
+    </div>
+</nav>
 <div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <form class="form-signin" action="../php/register.php" autocomplete="on" method="get">
+                <h2 class="form-signin-heading">Nouveau compte</h2>
 
-    <form class="form-signin" action="../php/register.php" autocomplete="on" method="get">
-        <h2 class="form-signin-heading">Nouveau compte</h2>
+                <label for="lastName" class="sr-only">Last name</label>
+                <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Nom de famille" required autofocus>
 
-        <label for="lastName" class="sr-only">Last name</label>
-        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Nom de famille" required autofocus>
+                <label for="firstName" class="sr-only">First name</label>
+                <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Prénom" required autofocus>
 
-        <label for="firstName" class="sr-only">First name</label>
-        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Prénom" required autofocus>
+                <label for="birthdayDate" class="sr-only">Birthday date</label>
+                <input type="date" id="birthdayDate" name="birthdayDate" class="form-control" placeholder="Date de naissance" required autofocus>
 
-        <label for="birthdayDate" class="sr-only">Birthday date</label>
-        <input type="date" id="birthdayDate" name="birthdayDate" class="form-control" placeholder="Date de naissance" required autofocus>
+                <label for="photo" class="sr-only">Photo link</label>
+                <input type="text" id="photo" name="photo" class="form-control" placeholder="Photo" required autofocus>
 
-        <label for="photo" class="sr-only">Photo link</label>
-        <input type="text" id="photo" name="photo" class="form-control" placeholder="Photo" required autofocus>
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Addresse mail" required autofocus>
 
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Addresse mail" required autofocus>
+                <label for="hometown" class="sr-only">Hometown</label>
+                <input type="text" id="hometown" name="hometown" class="form-control" placeholder="Ville de naissance" required autofocus>
 
-        <label for="hometown" class="sr-only">Hometown</label>
-        <input type="text" id="hometown" name="hometown" class="form-control" placeholder="Ville de naissance" required autofocus>
+                <label for="cityResidency" class="sr-only">City of residency</label>
+                <input type="text" id="cityResidency" name="cityResidency" class="form-control" placeholder="Ville de résidence" required autofocus>
 
-        <label for="cityResidency" class="sr-only">City of residency</label>
-        <input type="text" id="cityResidency" name="cityResidency" class="form-control" placeholder="Ville de résidence" required autofocus>
+                <label for="section" class="sr-only">Section</label>
+                <input type="text" id="section" name="section" class="form-control" placeholder="Section" required autofocus>
 
-        <label for="section" class="sr-only">Section</label>
-        <input type="text" id="section" name="section" class="form-control" placeholder="Section" required autofocus>
+                <label for="sectionYear" class="sr-only">Section year</label>
+                <input type="text" id="sectionYear" name="sectionYear" class="form-control" placeholder="Promotion" required autofocus>
 
-        <label for="sectionYear" class="sr-only">Section year</label>
-        <input type="text" id="sectionYear" name="sectionYear" class="form-control" placeholder="Promotion" required autofocus>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required>
 
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Go !</button>
-    </form>
-
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Go !</button>
+                <p><a href="login.html">J'ai un compte</a></p>
+            </form>
+        </div>
+    </div>
 </div> <!-- /container -->
 
 </body>

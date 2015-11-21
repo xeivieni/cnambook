@@ -18,11 +18,7 @@ $user = $stmt3->fetchAll();
 <head>
     <meta charset="UTF-8">
     <title>
-        <?php
-        echo $owner[0]["prenom"];
-        echo " ";
-        echo $owner[0]["nom"];
-        ?>
+        <?php echo $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?>
     </title>
 </head>
 <header>
@@ -39,49 +35,58 @@ $statuts = $stmt->fetchAll();
 <body>
 
 <div class="jumbotron">
-    <h1><?php echo $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?></h1>
-
     <div class="row">
-        <div class="col-xs-6 col-md-3">
-            <a href="#" class="thumbnail">
-                <img src="../img/users/<?php echo $owner[0]["lien_photo"]; ?>" width="320" height="320">
-            </a>
-        </div>
-    </div>
-    <?php
-    if ($userid == $id) {
-        $isfriend = -1;
-    } else {
-        $stmt = $conn->prepare('SELECT * FROM Amis WHERE (iduser1=:iduser1 and iduser2=:iduser2) or (iduser1=:iduser2 and iduser2=:iduser1)');
-        $stmt->execute(array('iduser1' => $id, 'iduser2' => $userid));
-        $isfriend = $stmt->rowCount();
-    }
-    ?>
-    <?php if ($isfriend == 0): ?>
-        <form action="friend.php" method="get">
-            <div class="row">
-                <div class="col-xs-6 col-md-3">
+        <div class="col-xs-6 col-md-9">
+            <h1><?php echo $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?></h1>
+            <br>
+
+            <p>
+                <span class="glyphicon glyphicon-home"></span> Habite à : <?php echo $owner[0]["ville_residence"]; ?>
+                <br>
+                <span class="glyphicon glyphicon-gift"></span> Né(e) le : <?php echo $owner[0]["date_naissance"]; ?>
+            </p>
+
+            <?php
+            if ($userid == $id) {
+                $isfriend = -1;
+            } else {
+                $stmt = $conn->prepare('SELECT * FROM Amis WHERE (iduser1=:iduser1 and iduser2=:iduser2) or (iduser1=:iduser2 and iduser2=:iduser1)');
+                $stmt->execute(array('iduser1' => $id, 'iduser2' => $userid));
+                $isfriend = $stmt->rowCount();
+            }
+            ?>
+            <?php if ($isfriend == 0): ?>
+                <form action="friend.php" method="get">
                     <button class="btn btn-primary btn-lg" type="submit" role="button" name="id"
                             value="<?php echo $owner[0]["iduser"]; ?>"><span class="glyphicon glyphicon-plus"></span>
                         Ajouter en ami
                     </button>
-                </div>
-            </div>
-        </form>
-    <?php endif ?>
+                </form>
+            <?php endif ?>
 
-    <?php if ($isfriend == 1): ?>
-        <form action="unfriend.php" method="get">
-            <div class="row">
-                <div class="col-xs-6 col-md-3">
-                    <button class="btn btn-primary btn-lg" type="submit" role="button" name="id"
-                            value="<?php echo $owner[0]["iduser"]; ?>"><span class="glyphicon glyphicon-plus"></span>
-                        Retirer des amis
-                    </button>
-                </div>
-            </div>
-        </form>
-    <?php endif ?>
+
+            <?php if ($isfriend == 1): ?>
+                <form action="unfriend.php" method="get">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-3">
+                            <button class="btn btn-primary btn-lg" type="submit" role="button" name="id"
+                                    value="<?php echo $owner[0]["iduser"]; ?>"><span
+                                    class="glyphicon glyphicon-plus"></span>
+                                Retirer des amis
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            <?php endif ?>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <a href="#" class="thumbnail">
+                <img src="../img/users/<?php echo $owner[0]["lien_photo"]; ?>" width="320" height="320">
+            </a>
+
+        </div>
+    </div>
+    <hr>
 
     <?php foreach ($statuts as $statut): ?>
         <?php
