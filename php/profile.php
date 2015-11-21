@@ -48,15 +48,40 @@ $statuts = $stmt->fetchAll();
             </a>
         </div>
     </div>
+    <?php
+    if ($userid == $id) {
+        echo "vous ne pouvez pas vous ajouter en ami";
+        $isfriend = -1;
+    }
+    else {
+        $stmt = $conn->prepare('SELECT * FROM Amis WHERE (iduser1=:iduser1 and iduser2=:iduser2) or (iduser1=:iduser2 and iduser2=:iduser1)');
+        $stmt->execute(array('iduser1' => $id, 'iduser2' => $userid));
+        $isfriend = $stmt->rowCount();
+    }
+    ?>
+    <?php if($isfriend == 0): ?>
+    <form action="friend.php" method="get">
     <div class="row">
         <div class="col-xs-6 col-md-3">
-            <a class="btn btn-primary btn-lg" href="#" role="button"><span class="glyphicon glyphicon-plus"></span> Ajouter en ami</a>
+            <button class="btn btn-primary btn-lg" type="submit" role="button" name="id" value="<?php echo $owner[0]["iduser"];?>"><span class="glyphicon glyphicon-plus"></span> Ajouter en ami</button>
         </div>
     </div>
+    </form>
+    <?php endif ?>
+
+    <?php if($isfriend == 1): ?>
+    <form action="unfriend.php" method="get">
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            <button class="btn btn-primary btn-lg" type="submit" role="button" name="id" value="<?php echo $owner[0]["iduser"];?>"><span class="glyphicon glyphicon-plus"></span> Retirer des amis</button>
+        </div>
+    </div>
+    </form>
+    <?php endif ?>
 
     <?php foreach($statuts as $statut): ?>
     <?php
-        $stmt = $conn->prepare('SELECT * FROM Compteur WHERE idstatut=:id');
+        $stmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
     $stmt->execute(array('id' => $statut["idstatut"]));
     $likes = $stmt->fetchAll();
     $count = $stmt->rowCount();

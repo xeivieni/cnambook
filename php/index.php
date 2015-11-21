@@ -27,10 +27,10 @@ $user = $stmt2->fetchAll();
     <title>Cnambook</title>
 
 </head>
-<header>
-    <?php include("header.php"); ?>
-</header>
+
+
 <body>
+<?php include("header.php"); ?>
 
 <?php
 $stmt1 = $conn->prepare('SELECT Statut.* FROM Amis, Statut WHERE (Amis.iduser1=:id AND Statut.iduser=Amis.iduser2) OR (Amis.iduser2=:id AND Statut.iduser=Amis.iduser1) ORDER BY Statut.date DESC');
@@ -62,7 +62,7 @@ $status = $stmt1->fetchAll();
 
 <?php foreach($status as $statut): ?>
 <?php
-    $stmt = $conn->prepare('SELECT * FROM Compteur WHERE idstatut=:id');
+    $stmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
 $stmt->execute(array('id' => $statut["idstatut"]));
 $likes = $stmt->fetchAll();
 $count = $stmt->rowCount();

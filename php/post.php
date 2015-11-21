@@ -1,6 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a href="profile.php?id=<?php echo $statut["iduser"]; ?>"><img src="../img/users/<?php echo $owner[0]["lien_photo"];?>" class="img-circle pull-left"><h4><?php echo " ".$owner[0]["prenom"]." ".$owner[0]["nom"];?></h4></a></div>
+        <a href="profile.php?id=<?php echo $statut["iduser"]; ?>"><img src="../img/users/<?php echo $owner[0]["lien_photo"];?>" class="img-circle"  width="40" height="40"><h4><?php echo " ".$owner[0]["prenom"]." ".$owner[0]["nom"];?></h4></a></div>
     <div class="panel-body">
         <?php echo $statut["texte"]; ?>
         <div class="clearfix"></div>

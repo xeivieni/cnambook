@@ -52,7 +52,7 @@ CREATE TABLE `Compteur` (
 -- Contenu de la table `Compteur`
 --
 
-INSERT INTO `Compteur` (`idlike`, `date`, `heure`, `iduser`, `idstatut`) VALUES
+INSERT INTO Likes (`idlike`, `date`, `heure`, `iduser`, `idstatut`) VALUES
 (1, '2015-11-19', '2015-11-19 12:17:45', 2, 4);
 
 -- --------------------------------------------------------
@@ -170,7 +170,7 @@ ALTER TABLE `Amis`
 --
 -- Index pour la table `Compteur`
 --
-ALTER TABLE `Compteur`
+ALTER TABLE Likes
   ADD PRIMARY KEY (`idlike`);
 
 --
@@ -204,7 +204,7 @@ ALTER TABLE `Amis`
 --
 -- AUTO_INCREMENT pour la table `Compteur`
 --
-ALTER TABLE `Compteur`
+ALTER TABLE Likes
   MODIFY `idlike` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `Section`

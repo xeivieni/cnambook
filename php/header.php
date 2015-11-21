@@ -8,13 +8,66 @@
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom -->
-    <link href="../css/header.css" rel="stylesheet">
+
+    <link href="../css/styles.css" rel="stylesheet">
 
 </head>
-<body>
+<div>
+<!-- top nav -->
+<div class="wrapper">
+    <div class="column col-sm-12 col-xs-12" id="main">
+<div class="navbar navbar-blue navbar-static-top">
+    <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="index.php" class="navbar-brand logo">c</a>
+    </div>
+    <nav class="collapse navbar-collapse" role="navigation">
+        <form class="navbar-form navbar-left" action="search.php">
+            <div class="input-group input-group-sm" style="max-width:500px;">
+                <input type="text" class="form-control" placeholder="Search" name="search" id="search">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="#"><i class="glyphicon glyphicon-home"></i> Accueil</a>
+            </li>
+            <li>
+                <a href="#" role="button" data-toggle="modal"><i class="glyphicon glyphicon-education"></i> Groupes</a>
+            </li>
+            <li>
+                <a href="#"><span class="badge">0</span></a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="../img/users/<?php echo $user[0]["lien_photo"];?>" class="profile-image img-circle"></a>
+                <ul class="dropdown-menu">
+                    <li><a href="profile.php?id=<?php echo $_SESSION['id']; ?>"> Profile</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="logout.php">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- /top nav -->
+</div>
+</div>
+
+
+<!--
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <!--Brand and toggle get grouped for better mobile display -->
+        &lt;!&ndash;Brand and toggle get grouped for better mobile display &ndash;&gt;
         <div class="navbar-header">
             <a class="navbar-brand" href="index.php">
                 <img alt="Brand" src="../img/hand332.png">
@@ -27,13 +80,13 @@
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
                         </span>
-                </div><!-- /input-group -->
+                </div>&lt;!&ndash; /input-group &ndash;&gt;
             </form>
 
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="../img/users/<?php echo $user[0]["lien_photo"];?>" class="profile-image img-circle"><?php echo " ".$user[0]["prenom"]." ".$user[0]["nom"];?></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="../img/users/<?php echo $user[0]["lien_photo"];?>" class="profile-image img-circle" width="304" height="236"><?php echo " ".$user[0]["prenom"]." ".$user[0]["nom"];?></a>
                     <ul class="dropdown-menu">
                         <li><a href="profile.php?id=<?php echo $_SESSION['id']; ?>"> Profile</a></li>
                         <li role="separator" class="divider"></li>
@@ -41,9 +94,9 @@
                     </ul>
                 </li>
             </ul>
-        </div><!--.navbar-collapse-->
-    </div><!--.container-fluid-->
-</nav>
+        </div>&lt;!&ndash;.navbar-collapse&ndash;&gt;
+    </div>&lt;!&ndash;.container-fluid&ndash;&gt;
+</nav>-->
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
