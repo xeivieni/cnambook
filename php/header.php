@@ -82,47 +82,41 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title" id="myModalLabel">Editer les informations du profil</h4>
                 </div>
                 <div class="modal-body">
                     <form action="">
 
-                        <label for="lastName" class="sr-only">Last name</label>
+                        <label for="lastName">Nom de famille</label>
                         <input type="text" id="lastName" name="lastName" class="form-control"
-                               placeholder="Nom de famille" required autofocus>
+                               placeholder="<?php echo $user[0]["nom"]; ?>">
 
-                        <label for="firstName" class="sr-only">First name</label>
-                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Prénom"
-                               required autofocus>
+                        <label for="firstName">Prénom</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="<?php echo $user[0]["prenom"]; ?>">
 
-                        <label for="birthdayDate" class="sr-only">Birthday date</label>
+                        <label for="birthdayDate">Date de naissance</label>
                         <input type="date" id="birthdayDate" name="birthdayDate" class="form-control"
-                               placeholder="Date de naissance" required autofocus>
+                               placeholder="<?php echo $user[0]["date_naissance"]; ?>">
 
-                        <label for="photo" class="sr-only">Photo link</label>
-                        <input type="text" id="photo" name="photo" class="form-control" placeholder="Photo" required
-                               autofocus>
-
-                        <label for="inputEmail" class="sr-only">Email address</label>
+                        <label for="inputEmail">Adresse email</label>
                         <input type="email" id="inputEmail" name="inputEmail" class="form-control"
-                               placeholder="Addresse mail" required autofocus>
+                               placeholder="<?php echo $user[0]["mail"]; ?>">
 
-                        <label for="hometown" class="sr-only">Hometown</label>
+                        <label for="hometown">Ville d'origine</label>
                         <input type="text" id="hometown" name="hometown" class="form-control"
-                               placeholder="Ville de naissance" required autofocus>
+                               placeholder="<?php echo $user[0]["ville_origine"]; ?>">
 
-                        <label for="cityResidency" class="sr-only">City of residency</label>
+                        <label for="cityResidency">Ville de résidence</label>
                         <input type="text" id="cityResidency" name="cityResidency" class="form-control"
-                               placeholder="Ville de résidence" required autofocus>
+                               placeholder="<?php echo $user[0]["ville_residence"]; ?>">
 
-                        <label for="section" class="sr-only">Section</label>
-                        <input type="text" id="section" name="section" class="form-control" placeholder="Section"
-                               autofocus>
+                        <label for="section">Section</label>
+                        <input type="text" id="section" name="section" class="form-control" placeholder="<?php echo $user[0]["idsection"]; ?>">
 
-                        <label for="sectionYear" class="sr-only">Section year</label>
+                        <label for="sectionYear">Promotion</label>
                         <input type="text" id="sectionYear" name="sectionYear" class="form-control"
-                               placeholder="Promotion" autofocus>
+                               placeholder="Promotion">
+
                         <button type="button" class="btn btn-primary" data-dismiss="modal"><span
                                 class="glyphicon glyphicon-floppy-disk"></span> Save
                         </button>
