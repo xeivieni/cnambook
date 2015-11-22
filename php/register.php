@@ -5,7 +5,7 @@ include("config.php");
 $lastName = $_GET["lastName"];
 $firstName = $_GET["firstName"];
 $birthdayDate = $_GET["birthdayDate"];
-$photo = "default.jpg";
+$photo = "../img/users/default.jpg";
 $email = $_GET["inputEmail"];
 $hometown = $_GET["hometown"];
 $cityResidency = $_GET["cityResidency"];

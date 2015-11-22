@@ -27,6 +27,10 @@ $user = $stmt3->fetchAll();
 $stmt = $conn->prepare('SELECT * FROM Statut WHERE iduser=:id ORDER BY Statut.heure DESC');
 $stmt->execute(array('id' => $id));
 $statuts = $stmt->fetchAll();
+
+$stmt2 = $conn->prepare('SELECT * FROM Amis WHERE iduser1=:id OR iduser2=:id');
+$stmt2->execute(array('id' => $userid));
+$friends = $stmt2->fetchAll();
 ?>
 
 
@@ -43,6 +47,8 @@ $statuts = $stmt->fetchAll();
                 <span class="glyphicon glyphicon-home"></span> Habite à : <?php echo $owner[0]["ville_residence"]; ?>
                 <br>
                 <span class="glyphicon glyphicon-gift"></span> Né(e) le : <?php echo $owner[0]["date_naissance"]; ?>
+                <br>
+                <a href="#"><span class="glyphicon glyphicon-gift"></span> <?php echo count($friends); ?> amis</a>
             </p>
 
             <?php

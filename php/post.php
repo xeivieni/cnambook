@@ -1,8 +1,14 @@
 <div class="panel panel-default">
     <div class="panel-heading">
+        <?php if ($statut["iduser"] == $_SESSION["id"]): ?>
+            <a href="remove.php?id=<?php echo $statut["idstatut"];?>"><span class="glyphicon glyphicon-remove pull-right"></span></a>
+        <?php endif ?>
+
         <a href="profile.php?id=<?php echo $statut["iduser"]; ?>"><img
                 src="<?php echo $owner[0]["lien_photo"]; ?>" class="img-circle pull-left" width="40" height="40">
-            <h4>&nbsp;<?php echo " " . $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?></h4></a></div>
+            <h4>&nbsp;<?php echo " " . $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?></h4></a>
+
+    </div>
     <div class="panel-body">
         <?php echo $statut["texte"]; ?>
         <div class="clearfix"></div>
