@@ -20,10 +20,8 @@ $user = $stmt3->fetchAll();
     <title>
         <?php echo $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?>
     </title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
-<header>
-    <?php include("header.php"); ?>
-</header>
 
 <?php
 $stmt = $conn->prepare('SELECT * FROM Statut WHERE iduser=:id ORDER BY Statut.heure DESC');
@@ -33,6 +31,7 @@ $statuts = $stmt->fetchAll();
 
 
 <body>
+<?php include("header.php"); ?>
 
 <div class="jumbotron">
     <div class="row">
@@ -92,9 +91,13 @@ $statuts = $stmt->fetchAll();
     <?php foreach ($statuts as $statut): ?>
         <?php
         $stmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
+        $stmt2 = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:id');
         $stmt->execute(array('id' => $statut["idstatut"]));
+        $stmt2->execute(array('id' => $statut["idstatut"]));
         $likes = $stmt->fetchAll();
-        $count = $stmt->rowCount();
+        $comments = $stmt2->fetchAll();
+        $likesCount = $stmt->rowCount();
+        $commentsCount = $stmt2->rowCount();
         ?>
 
         <div class="container-fluid">

@@ -62,9 +62,15 @@ $status = $stmt1->fetchAll();
 <?php foreach ($status as $statut): ?>
     <?php
     $stmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
+    $stmt3 = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:id');
     $stmt->execute(array('id' => $statut["idstatut"]));
+    $stmt3->execute(array('id' => $statut["idstatut"]));
     $likes = $stmt->fetchAll();
-    $count = $stmt->rowCount();
+    $comments = $stmt3->fetchAll();
+    $likesCount = $stmt->rowCount();
+    $commentsCount = $stmt3->rowCount();
+
+
     $stmt2 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
     $stmt2->execute(array('id' => $statut["iduser"]));
     $owner = $stmt2->fetchAll();
