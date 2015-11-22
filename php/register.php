@@ -35,6 +35,26 @@ $stmt->execute(array('lastname' => $lastName, 'firstname' => $firstName, 'birthd
     $photo, 'inscriptiondate' => $inscriptionDate, 'email' => $email, 'hometown' => $hometown, 'cityresidency' => $cityResidency
 , 'idsection' => $idsection, 'pass' => $password));
 
+$_SESSION['mail'] = $email;
+$_SESSION['nom'] = $lastName;
+$_SESSION['prenom'] = $firstName;
+
+$stmt3 = $conn->prepare('SELECT * FROM Users WHERE mail=:email AND password = MD5(:pass)');
+$stmt3->execute(array('email' => $email, 'pass' => $password));
+
+$result = $stmt3->fetchAll();
+$count = $stmt3->rowCount();
+
+if ($count  == 1)
+{
+    $_SESSION['id'] =  $result[0]["iduser"];
+    header("Location: index.php");
+}
+else
+{
+    header("Location: ../html/login.html");
+}
+
 header("Location: index.php");
 
 
