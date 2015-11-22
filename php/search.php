@@ -2,6 +2,7 @@
 setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 session_start();
 include("config.php");
+include("header.php");
 
 $search = $_GET["search"];
 
@@ -13,8 +14,19 @@ $count = $stmt->rowCount();
 
 if ($count == 1) {
     header('location:profile.php?id=' . $results[0]['iduser']);
-} else {
-    echo "several results";
+}
+else
+{
+    if($count == 0)
+    {
+        echo"<br>";
+        echo "<h2>"."No result for "."\"".$search."\""."</h2>";
+    }
+    else
+    {
+        echo "<h2>"."Too many results"."</h2>";
+        echo"<br>";
+    }
 }
 
 ?>
