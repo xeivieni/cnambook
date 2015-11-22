@@ -56,7 +56,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown"><img
-                                    src="../img/users/<?php echo $user[0]["lien_photo"]; ?>"
+                                    src="<?php echo $user[0]["lien_photo"]; ?>"
                                     class="profile-image img-circle"></a>
                             <ul class="dropdown-menu">
                                 <li><a href="profile.php?id=<?php echo $_SESSION['id']; ?>"><span

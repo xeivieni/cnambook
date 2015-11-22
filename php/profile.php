@@ -80,8 +80,9 @@ $statuts = $stmt->fetchAll();
             <?php endif ?>
         </div>
         <div class="col-xs-6 col-md-3">
-            <a href="#" class="thumbnail">
-                <img src="../img/users/<?php echo $owner[0]["lien_photo"]; ?>" width="320" height="320">
+            <a href="#" data-toggle="modal"
+               data-target="#<?php if ($isfriend == -1){echo "photoupdate";} else if ($isfriend == 1){echo "photodisplay";} ?>" class="thumbnail">
+                <img src="<?php echo $owner[0]["lien_photo"]; ?>" width="320" height="320">
             </a>
 
         </div>
@@ -109,6 +110,36 @@ $statuts = $stmt->fetchAll();
 
 
     <?php endforeach ?>
+
+</div>
+    <div class="modal fade" id="photodisplay" tabindex="-1" role="dialog"
+         aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="<?php echo $owner[0]["lien_photo"]; ?>" class="img-responsive">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="photoupdate" tabindex="-1" role="dialog"
+         aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <!-- Le type d'encodage des données, enctype, DOIT être spécifié comme ce qui suit -->
+                    <form enctype="multipart/form-data" action="upload.php" method="post">
+                        <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
+                        <input type="hidden" name="MAX_FILE_SIZE" value="300000000000" />
+                        <!-- Le nom de l'élément input détermine le nom dans le tableau $_FILES -->
+                        Envoyez ce fichier : <input name="userfile" type="file" />
+                        <input type="submit" value="Envoyer le fichier" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </body>

@@ -5,7 +5,7 @@ include("config.php");
 $lastName = $_GET["lastName"];
 $firstName = $_GET["firstName"];
 $birthdayDate = $_GET["birthdayDate"];
-$photo = $_GET["photo"];
+$photo = "default.jpg";
 $email = $_GET["inputEmail"];
 $hometown = $_GET["hometown"];
 $cityResidency = $_GET["cityResidency"];
@@ -13,7 +13,6 @@ $section = $_GET["section"];
 $sectionYear = $_GET["sectionYear"];
 $password = $_GET["inputPassword"];
 $inscriptionDate = "19/11/15";
-
 
 $stmt2 = $conn->prepare('SELECT idsection FROM Section WHERE nom=:sectionName AND annee =:yearSection');
 $stmt2->execute(array('sectionName' => $section, 'yearSection' => $sectionYear));

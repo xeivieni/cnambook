@@ -2,7 +2,6 @@
 setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 session_start();
 include("config.php");
-include("header.php");
 
 $search = $_GET["search"];
 
