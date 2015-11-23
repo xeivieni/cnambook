@@ -50,6 +50,7 @@ if ($userId == $ownerId) {
 
 ?>
 
+<?php include("header.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,12 +59,10 @@ if ($userId == $ownerId) {
     <title>
         <?php echo $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?>
     </title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 
 <body>
-<?php include("header.php"); ?>
 
 <div class="jumbotron">
     <div class="row">

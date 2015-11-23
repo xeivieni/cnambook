@@ -18,7 +18,7 @@
     </div>
     <div class="panel-body">
         <?php echo "né(e) le ".$groupUser["date_naissance"]; ?>
-        <?php echo "habite a ".$groupUser["ville_origine"]; ?>
+        <?php echo "habite a ".$groupUser["ville_residence"]; ?>
     </div>
 </div>
 

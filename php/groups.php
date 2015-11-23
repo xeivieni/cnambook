@@ -8,6 +8,7 @@ if (!isset($_SESSION["mail"])) {
     header("Location: ../html/login.html");
 }
 
+
 //Getting profile owner and user ids from session and URL:
 $userId = $_SESSION["id"];
 
@@ -35,23 +36,9 @@ $user = $userInfoStmt->fetchAll();
 $groupUsersListStmt = $conn->prepare('SELECT * FROM Users WHERE idsection=:id');
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-    <title>Cnambook</title>
-
-</head>
-
+<?php include("header.php"); ?>
 
 <body>
-<?php include("header.php"); ?>
 
 <div class="container">
     <h1>Parcourez les profils des auditeurs du CNAM</h1>

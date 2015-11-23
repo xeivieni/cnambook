@@ -11,12 +11,29 @@
 
     <link href="../css/styles.css" rel="stylesheet">
 
+    <link rel="apple-touch-icon" sizes="57x57" href="../img/logo.ico/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../img/logo.ico/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../img/logo.ico/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../img/logo.ico/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../img/logo.ico/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../img/logo.ico/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../img/logo.ico/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../img/logo.ico/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/logo.ico/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../img/logo.ico/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/logo.ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../img/logo.ico/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/logo.ico/favicon-16x16.png">
+    <link rel="manifest" href="../img/logo.ico/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
 </head>
 
 
 <body>
 <div>
-
     <!-- top nav -->
     <div class="wrapper">
         <div class="column col-sm-12 col-xs-12" id="main">
@@ -48,9 +65,6 @@
                         <li>
                             <a href="user_list.php" role="button"><i class="glyphicon glyphicon-education"></i>
                                 Groupes</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="badge">0</span></a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -85,7 +99,7 @@
                     <h4 class="modal-title" id="myModalLabel">Editer les informations du profil</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form class="form-signin" action="edit.php" method="get">
 
                         <label for="lastName">Nom de famille</label>
                         <input type="text" id="lastName" name="lastName" class="form-control"
@@ -117,7 +131,7 @@
                         <input type="text" id="sectionYear" name="sectionYear" class="form-control"
                                placeholder="Promotion">
 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span
+                        <button type="submit" class="btn btn-primary"><span
                                 class="glyphicon glyphicon-floppy-disk"></span> Save
                         </button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal"> Cancel</button>
