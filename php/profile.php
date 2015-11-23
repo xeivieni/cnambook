@@ -14,7 +14,7 @@ $userId = $_SESSION["id"];
 
 //Database Requests
 //Getting profile owner info
-$UserInfoStmt = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
+$userInfoStmt = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
 $userInfoStmt->execute(array('id' => $ownerId));
 $owner = $userInfoStmt->fetchAll();
 

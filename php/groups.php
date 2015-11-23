@@ -33,8 +33,6 @@ $user = $userInfoStmt->fetchAll();
 
 //Getting the list of the users for a given group id
 $groupUsersListStmt = $conn->prepare('SELECT * FROM Users WHERE idsection=:id');
-$groupUsersListStmt->execute(array('id' => $userId));
-$groupUsersList = $groupUsersListStmt->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -58,7 +56,7 @@ $groupUsersList = $groupUsersListStmt->fetchAll();
 <div class="container">
     <h1>Parcourez les profils des auditeurs du CNAM</h1>
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#">All</a></li>
+        <li role="presentation" class="active"><a href="user_list.php">All</a></li>
         <?php foreach ($allGroups as $group): ?>
             <li role="presentation" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"

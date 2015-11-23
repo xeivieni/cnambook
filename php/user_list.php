@@ -1,19 +1,23 @@
 <?
+include "config.php";
 
+include "groups.php";
 if (!isset($_GET["id"])){
-
+    $allGroupUsersStmt = $conn->prepare('SELECT * FROM Users WHERE 1');
+    $allGroupUsersStmt->execute();
+    $groupUsersList = $allGroupUsersStmt->fetchAll();
 }
-
-
-
-function displayAll($arg_1, $arg_2, /* ..., */ $arg_n)
-{
-    echo "Exemple de fonction.\n";
-    return $retval;
+else {
+    $groupUsersListStmt->execute(array('id' => $_GET["id"]));
+    $groupUsersList = $groupUsersListStmt->fetchAll();
 }
+?>
 
-function displayClass($arg_1, $arg_2, /* ..., */ $arg_n)
-{
-    echo "Exemple de fonction.\n";
-    return $retval;
-}
+<div class="container">
+    <? foreach ($groupUsersList as $groupUser){
+        include "overview.php";
+    }
+
+    ?>
+
+</div>
