@@ -92,7 +92,7 @@ CREATE TABLE `Section` (
 -- Contenu de la table `Section`
 --
 
-INSERT INTO `Section` (`idsection`, `nom`, `annee`) VALUES
+INSERT INTO `Section` (`idsection`, filiere, `annee`) VALUES
 (1, 'SETI3', 2016),
 (2, 'SETI3', 2016),
 (3, 'STN3', 2016),

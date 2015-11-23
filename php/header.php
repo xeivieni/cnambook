@@ -46,7 +46,7 @@
                             <a href="index.php"><i class="glyphicon glyphicon-home"></i> Accueil</a>
                         </li>
                         <li>
-                            <a href="#" role="button" data-toggle="modal"><i class="glyphicon glyphicon-education"></i>
+                            <a href="groups.php" role="button"><i class="glyphicon glyphicon-education"></i>
                                 Groupes</a>
                         </li>
                         <li>
