@@ -3,18 +3,22 @@ setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 session_start();
 include("config.php");
 
+//Redirect to login page if users isn't logged (no cookie)
+if (!isset($_SESSION["mail"])) {
+    header("Location: ../html/login.html");
+}
+
 //Getting profile owner and user ids from session and URL:
 $ownerId = $_GET["id"];
 $userId = $_SESSION["id"];
 
 //Database Requests
 //Getting profile owner info
-$profileOwnerInfoStmt = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
-$profileOwnerInfoStmt->execute(array('id' => $ownerId));
-$owner = $profileOwnerInfoStmt->fetchAll();
+$UserInfoStmt = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
+$userInfoStmt->execute(array('id' => $ownerId));
+$owner = $userInfoStmt->fetchAll();
 
 //Getting user info
-$userInfoStmt = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
 $userInfoStmt->execute(array('id' => $userId));
 $user = $userInfoStmt->fetchAll();
 
@@ -72,7 +76,8 @@ if ($userId == $ownerId) {
                 <br>
                 <span class="glyphicon glyphicon-gift"></span> Né(e) le : <?php echo $owner[0]["date_naissance"]; ?>
                 <br>
-                <a href="#" data-toggle="modal" data-target="#friendslist<?php echo $owner[0]["iduser"]; ?>"><span class="glyphicon glyphicon-user"></span> <?php echo count($friends); ?> amis</a>
+                <a href="#" data-toggle="modal" data-target="#friendslist<?php echo $owner[0]["iduser"]; ?>"><span
+                        class="glyphicon glyphicon-user"></span> <?php echo count($friends); ?> amis</a>
             </p>
 
             <?php if ($isFriend == 0): ?>

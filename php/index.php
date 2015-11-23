@@ -3,15 +3,31 @@ setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 session_start();
 include("config.php");
 
+//Redirect to login page if users isn't logged (no cookie)
 if (!isset($_SESSION["mail"])) {
     header("Location: ../html/login.html");
 }
-$id = $_SESSION["id"];
-$nom = $_SESSION["nom"];
-$prenom = $_SESSION["prenom"];
-$stmt2 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
-$stmt2->execute(array('id' => $id));
-$user = $stmt2->fetchAll();
+
+//Getting profile owner and user ids from session and URL:
+$userId = $_SESSION["id"];
+
+//Database Requests
+//Getting user info
+$userInfoStmt = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
+$userInfoStmt->execute(array('id' => $userId));
+$user = $userInfoStmt->fetchAll();
+
+//Getting the list of status of the user's friends
+$statusListStmt = $conn->prepare('SELECT Statut.* FROM Amis, Statut WHERE (Amis.iduser1=:id AND Statut.iduser=Amis.iduser2) OR (Amis.iduser2=:id AND Statut.iduser=Amis.iduser1) ORDER BY Statut.heure DESC');
+$statusListStmt->execute(array('id' => $userId));
+$statusList = $statusListStmt->fetchAll();
+
+//Getting the list of the likes for a given status id
+$likesListStmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
+
+//Getting the list of the comments for a given status id
+$commentsListStmt = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:id');
+
 ?>
 
 <!DOCTYPE html>
@@ -32,13 +48,6 @@ $user = $stmt2->fetchAll();
 <body>
 <?php include("header.php"); ?>
 
-<?php
-$stmt1 = $conn->prepare('SELECT Statut.* FROM Amis, Statut WHERE (Amis.iduser1=:id AND Statut.iduser=Amis.iduser2) OR (Amis.iduser2=:id AND Statut.iduser=Amis.iduser1) ORDER BY Statut.heure DESC');
-$stmt1->execute(array('id' => $id));
-
-$status = $stmt1->fetchAll();
-
-?>
 <div class="col-lg-8 col-lg-offset-2">
     <div class="well">
         <form class="form-horizontal" action="status.php" role="form">
@@ -59,22 +68,16 @@ $status = $stmt1->fetchAll();
 </div>
 
 
-<?php foreach ($status as $statut): ?>
+<?php foreach ($statusList as $status): ?>
     <?php
-    $stmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
-    $stmt3 = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:id');
-    $stmt->execute(array('id' => $statut["idstatut"]));
-    $stmt3->execute(array('id' => $statut["idstatut"]));
-    $likes = $stmt->fetchAll();
-    $comments = $stmt3->fetchAll();
-    $likesCount = $stmt->rowCount();
-    $commentsCount = $stmt3->rowCount();
-
-
-    $stmt2 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
-    $stmt2->execute(array('id' => $statut["iduser"]));
-    $owner = $stmt2->fetchAll();
-
+    $likesListStmt->execute(array('id' => $status["idstatut"]));
+    $userInfoStmt->execute(array('id' => $status["iduser"]));
+    $commentsListStmt->execute(array('id' => $status["idstatut"]));
+    $likes = $likesListStmt->fetchAll();
+    $comments = $commentsListStmt->fetchAll();
+    $likesCount = $likesListStmt->rowCount();
+    $commentsCount = $commentsListStmt->rowCount();
+    $owner = $userInfoStmt->fetchAll();
     ?>
     <div class="container-fluid">
         <div class="row">
