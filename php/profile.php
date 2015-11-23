@@ -2,14 +2,48 @@
 setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 session_start();
 include("config.php");
-$id = $_GET["id"];
-$stmt2 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
-$stmt2->execute(array('id' => $id));
-$owner = $stmt2->fetchAll();
-$userid = $_SESSION["id"];
-$stmt3 = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
-$stmt3->execute(array('id' => $userid));
-$user = $stmt3->fetchAll();
+
+//Getting profile owner and user ids from session and URL:
+$ownerId = $_GET["id"];
+$userId = $_SESSION["id"];
+
+//Database Requests
+//Getting profile owner info
+$profileOwnerInfoStmt = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
+$profileOwnerInfoStmt->execute(array('id' => $ownerId));
+$owner = $profileOwnerInfoStmt->fetchAll();
+
+//Getting user info
+$userInfoStmt = $conn->prepare('SELECT * FROM Users WHERE iduser=:id');
+$userInfoStmt->execute(array('id' => $userId));
+$user = $userInfoStmt->fetchAll();
+
+//Getting the list of all the status of the owner
+$statusListStmt = $conn->prepare('SELECT * FROM Statut WHERE iduser=:id ORDER BY Statut.heure DESC');
+$statusListStmt->execute(array('id' => $ownerId));
+$statusList = $statusListStmt->fetchAll();
+
+//Getting the list of all the friends of the owner
+$friendsStmt = $conn->prepare('SELECT Users.* FROM Amis, Users WHERE (Amis.iduser2=:id AND Users.iduser=Amis.iduser1) OR (Amis.iduser1=:id AND Users.iduser=Amis.iduser2)');
+$friendsStmt->execute(array('id' => $ownerId));
+$friends = $friendsStmt->fetchAll();
+
+//Getting the list of the likes for a given status id
+$likesListStmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
+
+//Getting the list of the comments for a given status id
+$commentsListStmt = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:id');
+
+if ($userId == $ownerId) {
+    //User is watching is own profile
+    $isFriend = -1;
+} else {
+    //Getting the relationship between user and owner
+    $isFriendStmt = $conn->prepare('SELECT * FROM Amis WHERE (iduser1=:iduser1 AND iduser2=:iduser2) OR (iduser1=:iduser2 AND iduser2=:iduser1)');
+    $isFriendStmt->execute(array('iduser1' => $ownerId, 'iduser2' => $userId));
+    $isFriend = $isFriendStmt->rowCount();
+}
+
 ?>
 
 
@@ -22,16 +56,6 @@ $user = $stmt3->fetchAll();
     </title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
-
-<?php
-$stmt = $conn->prepare('SELECT * FROM Statut WHERE iduser=:id ORDER BY Statut.heure DESC');
-$stmt->execute(array('id' => $id));
-$statuts = $stmt->fetchAll();
-
-$stmt2 = $conn->prepare('SELECT * FROM Amis WHERE iduser1=:id OR iduser2=:id');
-$stmt2->execute(array('id' => $userid));
-$friends = $stmt2->fetchAll();
-?>
 
 
 <body>
@@ -48,19 +72,10 @@ $friends = $stmt2->fetchAll();
                 <br>
                 <span class="glyphicon glyphicon-gift"></span> Né(e) le : <?php echo $owner[0]["date_naissance"]; ?>
                 <br>
-                <a href="#"><span class="glyphicon glyphicon-gift"></span> <?php echo count($friends); ?> amis</a>
+                <a href="#" data-toggle="modal" data-target="#likeslist<?php echo $owner["iduser"]; ?>"><span class="glyphicon glyphicon-gift"></span> <?php echo count($friends); ?> amis</a>
             </p>
 
-            <?php
-            if ($userid == $id) {
-                $isfriend = -1;
-            } else {
-                $stmt = $conn->prepare('SELECT * FROM Amis WHERE (iduser1=:iduser1 and iduser2=:iduser2) or (iduser1=:iduser2 and iduser2=:iduser1)');
-                $stmt->execute(array('iduser1' => $id, 'iduser2' => $userid));
-                $isfriend = $stmt->rowCount();
-            }
-            ?>
-            <?php if ($isfriend == 0): ?>
+            <?php if ($isFriend == 0): ?>
                 <form action="friend.php" method="get">
                     <button class="btn btn-primary btn-lg" type="submit" role="button" name="id"
                             value="<?php echo $owner[0]["iduser"]; ?>"><span class="glyphicon glyphicon-plus"></span>
@@ -70,7 +85,7 @@ $friends = $stmt2->fetchAll();
             <?php endif ?>
 
 
-            <?php if ($isfriend == 1): ?>
+            <?php if ($isFriend == 1): ?>
                 <form action="unfriend.php" method="get">
                     <div class="row">
                         <div class="col-xs-6 col-md-3">
@@ -86,7 +101,11 @@ $friends = $stmt2->fetchAll();
         </div>
         <div class="col-xs-6 col-md-3">
             <a href="#" data-toggle="modal"
-               data-target="#<?php if ($isfriend == -1){echo "photoupdate";} else if ($isfriend == 1){echo "photodisplay";} ?>" class="thumbnail">
+               data-target="#<?php if ($isFriend == -1) {
+                   echo "photoupdate";
+               } else if ($isFriend == 1) {
+                   echo "photodisplay";
+               } ?>" class="thumbnail">
                 <img src="<?php echo $owner[0]["lien_photo"]; ?>" width="320" height="320">
             </a>
 
@@ -94,61 +113,88 @@ $friends = $stmt2->fetchAll();
     </div>
     <hr>
 
-    <?php foreach ($statuts as $statut): ?>
+    <?php foreach ($statusList as $status): ?>
         <?php
-        $stmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
-        $stmt2 = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:id');
-        $stmt->execute(array('id' => $statut["idstatut"]));
-        $stmt2->execute(array('id' => $statut["idstatut"]));
-        $likes = $stmt->fetchAll();
-        $comments = $stmt2->fetchAll();
-        $likesCount = $stmt->rowCount();
-        $commentsCount = $stmt2->rowCount();
+        $likesListStmt->execute(array('id' => $status["idstatut"]));
+        $commentsListStmt->execute(array('id' => $status["idstatut"]));
+        $likes = $likesListStmt->fetchAll();
+        $comments = $commentsListStmt->fetchAll();
+        $likesCount = $likesListStmt->rowCount();
+        $commentsCount = $commentsListStmt->rowCount();
         ?>
 
         <div class="container-fluid">
-
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <?php include("post.php"); ?>
-
                 </div>
             </div>
-
         </div>
-
-
     <?php endforeach ?>
+</div> <!--Jumbotron-->
 
+<div class="modal fade" id="photodisplay" tabindex="-1" role="dialog"
+     aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="<?php echo $owner[0]["lien_photo"]; ?>" class="img-responsive">
+            </div>
+        </div>
+    </div>
 </div>
-    <div class="modal fade" id="photodisplay" tabindex="-1" role="dialog"
-         aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <img src="<?php echo $owner[0]["lien_photo"]; ?>" class="img-responsive">
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="photoupdate" tabindex="-1" role="dialog"
-         aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <!-- Le type d'encodage des données, enctype, DOIT être spécifié comme ce qui suit -->
-                    <form enctype="multipart/form-data" action="upload.php" method="post">
-                        <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
-                        <input type="hidden" name="MAX_FILE_SIZE" value="300000000000" />
-                        <!-- Le nom de l'élément input détermine le nom dans le tableau $_FILES -->
-                        Envoyez ce fichier : <input name="userfile" type="file" />
-                        <input type="submit" value="Envoyer le fichier" />
-                    </form>
-                </div>
+<div class="modal fade" id="photoupdate" tabindex="-1" role="dialog"
+     aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Le type d'encodage des données, enctype, DOIT être spécifié comme ce qui suit -->
+                <form enctype="multipart/form-data" action="upload.php" method="post">
+                    <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
+                    <input type="hidden" name="MAX_FILE_SIZE" value="300000000000"/>
+                    <!-- Le nom de l'élément input détermine le nom dans le tableau $_FILES -->
+                    Envoyez ce fichier : <input name="userfile" type="file"/>
+                    <input type="submit" value="Envoyer le fichier"/>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="friendslist<?php echo $owner["iduser"]; ?>" tabindex="-1" role="dialog"
+     aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <?php if ($isFriend == -1): ?>
+                    <h4 class="modal-title" id="myModalLabel">Vos amis</h4>
+                <?php else: ?>
+                    <h4 class="modal-title" id="myModalLabel">Les amis de <?php echo $owner["prenom"]; ?></h4>
+                <?php endif ?>
+            </div>
+            <div class="modal-body">
+                <?php
+                if (count($friends) == 0) {
+                    echo $owner["prenom"] . " n'a pas encore d'amis..";
+                }
+                ?>
+                <?php foreach ($friends as $friend) : ?>
+                    <a href="profile.php?id=<?php echo $friend[0]["iduser"]; ?>"><img
+                            src="<?php echo $friend[0]["lien_photo"]; ?>" class="img-circle pull-left"
+                            width="25" height="25">&nbsp;<?php echo " " . $friend[0]["prenom"] . " " . $friend[0]["nom"]; ?>
+                    </a>
+                    <br>
+                    <br>
+                <?php endforeach ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 </body>
