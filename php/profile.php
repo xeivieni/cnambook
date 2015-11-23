@@ -72,7 +72,7 @@ if ($userId == $ownerId) {
                 <br>
                 <span class="glyphicon glyphicon-gift"></span> Né(e) le : <?php echo $owner[0]["date_naissance"]; ?>
                 <br>
-                <a href="#" data-toggle="modal" data-target="#likeslist<?php echo $owner["iduser"]; ?>"><span class="glyphicon glyphicon-gift"></span> <?php echo count($friends); ?> amis</a>
+                <a href="#" data-toggle="modal" data-target="#friendslist<?php echo $owner[0]["iduser"]; ?>"><span class="glyphicon glyphicon-user"></span> <?php echo count($friends); ?> amis</a>
             </p>
 
             <?php if ($isFriend == 0): ?>
@@ -162,7 +162,7 @@ if ($userId == $ownerId) {
     </div>
 </div>
 
-<div class="modal fade" id="friendslist<?php echo $owner["iduser"]; ?>" tabindex="-1" role="dialog"
+<div class="modal fade" id="friendslist<?php echo $owner[0]["iduser"]; ?>" tabindex="-1" role="dialog"
      aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -182,8 +182,8 @@ if ($userId == $ownerId) {
                 ?>
                 <?php foreach ($friends as $friend) : ?>
                     <a href="profile.php?id=<?php echo $friend[0]["iduser"]; ?>"><img
-                            src="<?php echo $friend[0]["lien_photo"]; ?>" class="img-circle pull-left"
-                            width="25" height="25">&nbsp;<?php echo " " . $friend[0]["prenom"] . " " . $friend[0]["nom"]; ?>
+                            src="<?php echo $friend["lien_photo"]; ?>" class="img-circle pull-left"
+                            width="25" height="25">&nbsp;<?php echo " " . $friend["prenom"] . " " . $friend["nom"]; ?>
                     </a>
                     <br>
                     <br>
