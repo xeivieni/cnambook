@@ -1,3 +1,13 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: clem
+ * Header of the website.
+ * This file must be included at the very beginning of every pages.
+ * This header also include the bootstrap stylesheets and scripts.
+ */
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +15,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Stylesheets -->
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom -->
-
     <link href="../css/styles.css" rel="stylesheet">
 
+    <!-- Logo -->
     <link rel="apple-touch-icon" sizes="57x57" href="../img/logo.ico/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../img/logo.ico/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="../img/logo.ico/apple-icon-72x72.png">
@@ -31,7 +42,6 @@
 
 </head>
 
-
 <body>
 <div>
     <!-- top nav -->
@@ -45,9 +55,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <!-- logo : redirects to index.php -->
                     <a href="index.php" class="navbar-brand logo">c</a>
                 </div>
                 <nav class="collapse navbar-collapse" role="navigation">
+                    <!-- search bar : redirects to search.php.php-->
                     <form class="navbar-form navbar-left" action="search.php">
                         <div class="input-group input-group-sm" style="max-width:500px;">
                             <input type="text" class="form-control" placeholder="Search" name="search" id="search">
@@ -60,26 +72,32 @@
                     </form>
                     <ul class="nav navbar-nav">
                         <li>
+                            <!-- Acceuil button : redirects to index.php-->
                             <a href="index.php"><i class="glyphicon glyphicon-home"></i> Accueil</a>
                         </li>
                         <li>
+                            <!-- Groups button : redirects to groups.php-->
                             <a href="user_list.php" role="button"><i class="glyphicon glyphicon-education"></i>
                                 Groupes</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <!-- Main user actions -->
                         <li class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown"><img
                                     src="<?php echo $user[0]["lien_photo"]; ?>"
                                     class="profile-image img-circle"></a>
                             <ul class="dropdown-menu">
+                                <!-- Profile : redirects to profile.php with the correct if (from the session) -->
                                 <li><a href="profile.php?id=<?php echo $_SESSION['id']; ?>"><span
                                             class="glyphicon glyphicon-user" aria-hidden="true"></span> Mon mur</a></li>
+                                <!-- Edit information : redirects to a modal form -->
                                 <li><a href="#" data-toggle="modal"
                                        data-target="#edit-info<?php echo $_SESSION['id']; ?>"><span
                                             class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         Informations</a></li>
                                 <li role="separator" class="divider"></li>
+                                <!-- Log out -->
                                 <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"
                                                                aria-hidden="true"></span> Déconnexion</a></li>
                             </ul>
@@ -91,6 +109,7 @@
         </div>
     </div>
 
+    <!-- Modal form for editing personal information -->
     <div class="modal fade" id="edit-info<?php echo $_SESSION['id']; ?>" tabindex="-1" role="dialog"
          aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">

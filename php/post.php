@@ -1,18 +1,25 @@
+<!-- Display a bloc containing the status owner's pricture, his name and the content of the status -->
+<!-- The number of likes and comments is also indicated and users can interact with the status -->
+<!-- by liking and commenting -->
+
 <div class="panel panel-default">
     <div class="panel-heading">
+        <!-- Display user's picture, name and first name, and a cross to delete the status if the owner of the status
+        is the session user-->
         <?php if ($status["iduser"] == $_SESSION["id"]): ?>
             <a href="remove.php?id=<?php echo $status["idstatut"];?>"><span class="glyphicon glyphicon-remove pull-right"></span></a>
         <?php endif ?>
-
         <a href="profile.php?id=<?php echo $status["iduser"]; ?>"><img
                 src="<?php echo $owner[0]["lien_photo"]; ?>" class="img-circle pull-left" width="40" height="40">
             <h4>&nbsp;<?php echo " " . $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?></h4></a>
 
     </div>
     <div class="panel-body">
+        <!-- Displaying the status -->
         <?php echo $status["texte"]; ?>
         <div class="clearfix"></div>
         <br>
+        <!-- Dynamic links to the list of likes or commments of the given status -->
         <a href="#" data-toggle="modal"
               data-target="#likeslist<?php echo $status["idstatut"]; ?>"><span class="glyphicon glyphicon-thumbs-up"></span> <?php echo $likesCount; ?> likes</a>
         &nbsp;
@@ -35,6 +42,7 @@
     </div>
 </div>
 
+<!-- Modal for likes-->
 <div class="modal fade" id="likeslist<?php echo $status["idstatut"]; ?>" tabindex="-1" role="dialog"
      aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -69,6 +77,7 @@
     </div>
 </div>
 
+<!-- Modal for comments -->
 <div class="modal fade" id="commentslist<?php echo $status["idstatut"]; ?>" tabindex="-1" role="dialog"
      aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">

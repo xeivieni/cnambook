@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: clem
+ * index.php
+ * Main page of the website
+ */
 setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 session_start();
 include("config.php");
@@ -33,6 +39,7 @@ $commentsListStmt = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:i
 <body>
 
 <div class="col-lg-8 col-lg-offset-2">
+    <!-- New post element -->
     <div class="well">
         <form class="form-horizontal" action="status.php" role="form">
             <h4>Quoi de neuf ?</h4>
@@ -53,19 +60,25 @@ $commentsListStmt = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:i
 
 
 <?php foreach ($statusList as $status): ?>
+    <!-- For each status from the friends list: -->
     <?php
+    //Get the number of likes and comments as well as the info of the status owner
+    //Likes
     $likesListStmt->execute(array('id' => $status["idstatut"]));
-    $userInfoStmt->execute(array('id' => $status["iduser"]));
-    $commentsListStmt->execute(array('id' => $status["idstatut"]));
     $likes = $likesListStmt->fetchAll();
-    $comments = $commentsListStmt->fetchAll();
     $likesCount = $likesListStmt->rowCount();
+    //Comments
+    $commentsListStmt->execute(array('id' => $status["idstatut"]));
+    $comments = $commentsListStmt->fetchAll();
     $commentsCount = $commentsListStmt->rowCount();
+    //Owner info
+    $userInfoStmt->execute(array('id' => $status["iduser"]));
     $owner = $userInfoStmt->fetchAll();
     ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
+                <!-- Display the post for every status -->
                 <?php include("post.php"); ?>
 
             </div>

@@ -1,22 +1,31 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: clem
+ * like.php
+ * Program to add a like in the database
+ */
 setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 session_start();
 include("config.php");
-$idstatut = $_GET["id"];
-$iduser = $_SESSION["id"];
 
-$stmt = $conn->prepare('SELECT * FROM Likes WHERE iduser=:iduser and idstatut=:idstatut');
-$stmt->execute(array('iduser' => $iduser, 'idstatut' => $idstatut));
-$count = $stmt->rowCount();
+//Getting the different useful ids
+$statusId = $_GET["id"];
+$userId = $_SESSION["id"];
+
+//Getting the like if already exists
+$getLikeStmt = $conn->prepare('SELECT * FROM Likes WHERE iduser=:iduser and idstatut=:idstatut');
+$getLikeStmt->execute(array('iduser' => $userId, 'idstatut' => $statusId));
+$count = $getLikeStmt->rowCount();
+
 if ($count == 0) {
-    $stmt2 = $conn->prepare('INSERT INTO Likes(idlike, heure, iduser, idstatut) VALUES (NULL,CURRENT_TIMESTAMP, :iduser,:idstatut)');
-    $stmt2->execute(array('iduser' => $iduser, 'idstatut' => $idstatut));
+    //If user haven't already liked this status : create like in the database
+    $addLikeStmt = $conn->prepare('INSERT INTO Likes(idlike, heure, iduser, idstatut) VALUES (NULL,CURRENT_TIMESTAMP, :iduser,:idstatut)');
+    $addLikeStmt->execute(array('iduser' => $userId, 'idstatut' => $statusId));
 } else {
-    $stmt3 = $conn->prepare('DELETE FROM Likes WHERE iduser=:iduser AND idstatut=:idstatut');
-    $stmt3->execute(array('iduser' => $iduser, 'idstatut' => $idstatut));
+    //If user have already liked this status : remove like from the database
+    $rmLikeStmt = $conn->prepare('DELETE FROM Likes WHERE iduser=:iduser AND idstatut=:idstatut');
+    $rmLikeStmt->execute(array('iduser' => $userId, 'idstatut' => $statusId));
 }
 
-
-header('Location: ' . $_SERVER['HTTP_REFERER']);
-
-?>
+header('Location: ' . $_SERVER['HTTP_REFERER']); //Redirect

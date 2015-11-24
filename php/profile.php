@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: clem
+ * profile.php
+ * Profile page to display user information
+ */
 setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 session_start();
 include("config.php");
@@ -65,11 +71,13 @@ if ($userId == $ownerId) {
 <body>
 
 <div class="jumbotron">
+    <!-- Top profile resuming important info of the user -->
     <div class="row">
         <div class="col-xs-6 col-md-9">
+            <!-- Name and first name -->
             <h1><?php echo $owner[0]["prenom"] . " " . $owner[0]["nom"]; ?></h1>
             <br>
-
+            <!-- Quick infos -->
             <p>
                 <span class="glyphicon glyphicon-home"></span> Habite à : <?php echo $owner[0]["ville_residence"]; ?>
                 <br>
@@ -78,7 +86,7 @@ if ($userId == $ownerId) {
                 <a href="#" data-toggle="modal" data-target="#friendslist<?php echo $owner[0]["iduser"]; ?>"><span
                         class="glyphicon glyphicon-user"></span> <?php echo count($friends); ?> amis</a>
             </p>
-
+            <!-- Button to add or remove profile owner from friends-->
             <?php if ($isFriend == 0): ?>
                 <form action="friend.php" method="get">
                     <button class="btn btn-primary btn-lg" type="submit" role="button" name="id"
@@ -87,8 +95,6 @@ if ($userId == $ownerId) {
                     </button>
                 </form>
             <?php endif ?>
-
-
             <?php if ($isFriend == 1): ?>
                 <form action="unfriend.php" method="get">
                     <div class="row">
@@ -104,6 +110,7 @@ if ($userId == $ownerId) {
             <?php endif ?>
         </div>
         <div class="col-xs-6 col-md-3">
+            <!-- Different behaviors on profile picture click depending if users are friends or not or if user is watching is own profile -->
             <a href="#" data-toggle="modal"
                data-target="#<?php if ($isFriend == -1) {
                    echo "photoupdate";
@@ -118,6 +125,7 @@ if ($userId == $ownerId) {
     <hr>
 
     <?php foreach ($statusList as $status): ?>
+        <!-- Display all the status of the profile owner -->
         <?php
         $likesListStmt->execute(array('id' => $status["idstatut"]));
         $commentsListStmt->execute(array('id' => $status["idstatut"]));
@@ -137,6 +145,7 @@ if ($userId == $ownerId) {
     <?php endforeach ?>
 </div> <!--Jumbotron-->
 
+<!-- Modal to display profile picture-->
 <div class="modal fade" id="photodisplay" tabindex="-1" role="dialog"
      aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -148,6 +157,7 @@ if ($userId == $ownerId) {
     </div>
 </div>
 
+<!-- Modal to update profile picture -->
 <div class="modal fade" id="photoupdate" tabindex="-1" role="dialog"
      aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -166,6 +176,7 @@ if ($userId == $ownerId) {
     </div>
 </div>
 
+<!-- Modal to display user's friends -->
 <div class="modal fade" id="friendslist<?php echo $owner[0]["iduser"]; ?>" tabindex="-1" role="dialog"
      aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
