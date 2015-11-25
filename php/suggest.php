@@ -27,8 +27,8 @@ foreach ($groupUsersList as $groupUser) {
     //Getting users from the same group
     $areFriendsStmt = $conn->prepare('SELECT * FROM Amis WHERE (iduser1 = :id1 AND iduser2 = :id2) OR (iduser2 = :id1 AND iduser1 = :id2)');
     $areFriendsStmt->execute(array('id1' => $groupUser["iduser"], 'id2' => $userId));
-    $notFriendInfo = $areFriendsStmt->fetchAll();
-    if (count($notFriendInfo) == 0 && $groupUser["iduser"] != $userId){
+    $areFriends = $areFriendsStmt->rowCount();
+    if ($areFriends == 0 && $groupUser["iduser"] != $userId){
         $suggestList[] = $groupUser;
     }
 }
