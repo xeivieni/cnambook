@@ -6,7 +6,7 @@
  * Display all the users of either all the groups or only the selected one.
  */
 setlocale(LC_CTYPE, 'fr_FR.UTF-8');
-session_start();
+
 include("config.php");
 
 //Redirect to login page if users isn't logged (no cookie)

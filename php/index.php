@@ -16,6 +16,12 @@ if (!isset($_SESSION["mail"])) {
 
 //Getting profile owner and user ids from session and URL:
 $userId = $_SESSION["id"];
+if (!isset($_GET["sort"])){
+    $sortType = "date";
+}
+else{
+    $sortType = $_GET["sort"];
+}
 
 //Database Requests
 //Getting user info
@@ -25,8 +31,16 @@ $user = $userInfoStmt->fetchAll();
 
 //Getting the list of status of the user's friends
 $statusListStmt = $conn->prepare('SELECT Statut.* FROM Amis, Statut WHERE (Amis.iduser1=:id AND Statut.iduser=Amis.iduser2) OR (Amis.iduser2=:id AND Statut.iduser=Amis.iduser1) ORDER BY Statut.heure DESC');
-$statusListStmt->execute(array('id' => $userId));
-$statusList = $statusListStmt->fetchAll();
+$statusListLikeSortStmt = $conn->prepare('SELECT Statut.* FROM Statut, Likes, Amis WHERE ((Amis.iduser2 = Statut.iduser and Amis.iduser1 = :id) OR (Amis.iduser1 = Statut.iduser and Amis.iduser2 = :id)) and Likes.idstatut = Statut.idstatut GROUP BY Likes.idstatut ORDER BY count(*) DESC');
+
+if ($sortType == "likes"){
+    $statusListLikeSortStmt->execute(array('id' => $userId));
+    $statusList = $statusListLikeSortStmt->fetchAll();
+}
+else{
+    $statusListStmt->execute(array('id' => $userId));
+    $statusList = $statusListStmt->fetchAll();
+}
 
 //Getting the list of the likes for a given status id
 $likesListStmt = $conn->prepare('SELECT * FROM Likes WHERE idstatut=:id');
@@ -36,6 +50,12 @@ $commentsListStmt = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:i
 
 ?>
 <?php include("header.php"); ?>
+<head>
+    <title>
+        Cnambook - Fil d'actualités
+    </title>
+</head>
+
 <body>
 
 <div class="col-lg-8 col-lg-offset-2">
@@ -48,15 +68,14 @@ $commentsListStmt = $conn->prepare('SELECT * FROM Commentaires WHERE idstatut=:i
                 <textarea id="statut" name="statut" class="form-control"
                           placeholder="Postez un nouveau statut..."></textarea>
             </div>
-            <button class="btn btn-primary pull-right" type="submit">Post</button>
-            <ul class="list-inline">
-                <li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li>
-                <li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li>
-                <li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li>
-            </ul>
+            <button class="btn btn-primary" type="submit">Poster</button>
         </form>
     </div>
+    <div class="well">
+        <a href="index.php?sort=<?php if ($sortType == "date"){echo "likes";} else {echo "date";} ?>"><button class="btn btn-default pull-right" type="submit">Trier</button></a>Trier par <?php if ($sortType == "date"){echo "likes";} else {echo "date";} ?>
+    </div>
 </div>
+
 
 
 <?php foreach ($statusList as $status): ?>

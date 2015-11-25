@@ -31,7 +31,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../img/logo.ico/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../img/logo.ico/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../img/logo.ico/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../img/logo.ico/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../img/logo.ico/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../img/logo.ico/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../img/logo.ico/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../img/logo.ico/favicon-16x16.png">
@@ -125,7 +125,8 @@
                                placeholder="<?php echo $user[0]["nom"]; ?>">
 
                         <label for="firstName">Prénom</label>
-                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="<?php echo $user[0]["prenom"]; ?>">
+                        <input type="text" id="firstName" name="firstName" class="form-control"
+                               placeholder="<?php echo $user[0]["prenom"]; ?>">
 
                         <label for="birthdayDate">Date de naissance</label>
                         <input type="date" id="birthdayDate" name="birthdayDate" class="form-control"
@@ -144,11 +145,22 @@
                                placeholder="<?php echo $user[0]["ville_residence"]; ?>">
 
                         <label for="section">Section</label>
-                        <input type="text" id="section" name="section" class="form-control" placeholder="<?php echo $user[0]["idsection"]; ?>">
+                        <?php
+                        //Getting the section corresponding to the given section id
+                        $sectionStmt = $conn->prepare('SELECT * FROM Section WHERE idsection= :id');
+                        $sectionStmt->execute(array('id' => $user[0]["idsection"]));
+                        $section = $sectionStmt->fetchAll();
+                        ?>
+                        <input type="text" id="section" name="section" class="form-control"
+                               placeholder="<?php echo $section[0]["filiere"]; ?>" autofocus>
 
-                        <label for="sectionYear">Promotion</label>
+                        <label for="sectionYear">Section year</label>
                         <input type="text" id="sectionYear" name="sectionYear" class="form-control"
-                               placeholder="Promotion">
+                               placeholder="<?php echo $section[0]["annee"]; ?>e Année (1 pour 1e année, etc)" autofocus>
+
+                        <label for="promotion">Promotion</label>
+                        <input type="text" id="promotion" name="promotion" class="form-control" placeholder="<?php echo $section[0]["promotion"]; ?>"
+                               autofocus>
 
                         <button type="submit" class="btn btn-primary"><span
                                 class="glyphicon glyphicon-floppy-disk"></span> Save

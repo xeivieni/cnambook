@@ -123,7 +123,15 @@ if ($userId == $ownerId) {
         </div>
     </div>
     <hr>
-
+    <?php if ($isFriend == -1): ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <?php include("suggest.php"); ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
     <?php foreach ($statusList as $status): ?>
         <!-- Display all the status of the profile owner -->
         <?php
