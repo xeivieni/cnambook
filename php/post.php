@@ -71,7 +71,7 @@
                 <?php endforeach ?>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>
@@ -84,7 +84,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title" id="myModalLabel">Ils ont liké</h4>
+                <h4 class="modal-title" id="myModalLabel">Ils ont commenté</h4>
             </div>
             <div class="modal-body">
                 <?php
@@ -107,7 +107,7 @@
                 <?php endforeach ?>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>

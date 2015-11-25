@@ -204,7 +204,7 @@ if ($userId == $ownerId) {
                 }
                 ?>
                 <?php foreach ($friends as $friend) : ?>
-                    <a href="profile.php?id=<?php echo $friend[0]["iduser"]; ?>"><img
+                    <a href="profile.php?id=<?php echo $friend["iduser"]; ?>"><img
                             src="<?php echo $friend["lien_photo"]; ?>" class="img-circle pull-left"
                             width="25" height="25">&nbsp;<?php echo " " . $friend["prenom"] . " " . $friend["nom"]; ?>
                     </a>

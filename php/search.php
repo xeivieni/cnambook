@@ -24,11 +24,8 @@ if (count($results) == 1) {
 else
 {
     if(count($results) == 0) {
+        include("header.php");
         echo"<br>";
-        echo "<h2>"."No result for "."\"".$search."\""."</h2>";
-    }
-    else {
-        echo "<h2>"."Too many results"."</h2>";
-        echo"<br>";
+        echo "<h2>"."Pas de résultat pour "."\"".$search."\"".", verifiez la syntaxe de votre recherche.</h2>";
     }
 }

@@ -62,7 +62,7 @@
                     <!-- search bar : redirects to search.php.php-->
                     <form class="navbar-form navbar-left" action="search.php">
                         <div class="input-group input-group-sm" style="max-width:500px;">
-                            <input type="text" class="form-control" placeholder="Search" name="search" id="search">
+                            <input type="text" class="form-control" placeholder="Rechercher des profils" name="search" id="search">
 
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>
@@ -154,7 +154,7 @@
                         <input type="text" id="section" name="section" class="form-control"
                                placeholder="<?php echo $section[0]["filiere"]; ?>" autofocus>
 
-                        <label for="sectionYear">Section year</label>
+                        <label for="sectionYear">Année</label>
                         <input type="text" id="sectionYear" name="sectionYear" class="form-control"
                                placeholder="<?php echo $section[0]["annee"]; ?>e Année (1 pour 1e année, etc)" autofocus>
 
