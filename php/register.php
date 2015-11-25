@@ -31,7 +31,7 @@ if (count($existingSection) == 1) {
 } else {
     $insertSectionStmt = $conn->prepare('INSERT INTO Section(idsection, filiere, annee, promotion) VALUES (NULL, :section, :y, :promo)');
     $insertSectionStmt->execute(array('section' => $section, 'y' => $sectionYear, 'promo' => $promotion));
-    $result = $insertSectionStmt->fetch(PDO::FETCH_ASSOC);
+    $result = $insertSectionStmt->fetchAll();
     $idsection = $result[0];
 }
 
